@@ -11,7 +11,6 @@ Este repositório tem como propósito centralizar módulos, documentações e ex
 - **Guia de comandos** para facilitar o uso do Terraform.
 - **Estruturas de implementação** aplicadas em plataformas como:
   - **Azure DevOps**
-  - **AWS**
 
 Explore, aprenda e contribua para expandir este repositório com ideias e melhorias!
 
