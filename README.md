@@ -18,13 +18,9 @@ Explore, aprenda e contribua para expandir este repositório com ideias e melhor
 
 ### Azure DevOps
 
-#### Organização: Tecnoform
-
-Neste repositório, você encontrará a pasta **Azure DevOps**, que contém recursos e configurações relacionadas à minha organização **Tecnoform**. Aqui, realizo os meus desenvolvimentos e criações dentro da estrutura do Azure DevOps.
-
 ### Módulos
 
-Dentro da pasta **modules**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
+Dentro da pasta **terraform-azdo-modules**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
 
 #### 1. **azuredevops_repository**
 
