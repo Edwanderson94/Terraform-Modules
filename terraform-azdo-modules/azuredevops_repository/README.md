@@ -52,6 +52,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_module_version"></a> [module\_version](#output\_module\_version) | Versão do módulo |
 | <a name="output_repository_default_branch"></a> [repository\_default\_branch](#output\_repository\_default\_branch) | O branch padrão dos repositórios criados |
 | <a name="output_repository_ids"></a> [repository\_ids](#output\_repository\_ids) | IDs dos repositórios criados, associados ao índice e ao nome do repositório |
 | <a name="output_repository_names"></a> [repository\_names](#output\_repository\_names) | Nomes dos repositórios criados |
@@ -62,7 +63,7 @@ Este repositório foi desenvolvido com o objetivo de oferecer uma infraestrutura
 
 ## Licença
 
-Este módulo está licenciado sob [tipo de licença, ex: MIT]. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
+Este módulo está licenciado sob MIT. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
 
 ## Contribuição
 
@@ -75,6 +76,6 @@ Agradecemos pela sua colaboração e interesse!
 
 ---
 
-**Desenvolvido por**
+**Desenvolvido por**  
 Edwanderson Luiz Pereira
 <!-- END_TF_DOCS -->
