@@ -14,10 +14,8 @@ output:
     - dependencies
 
 # Alterado para que header-from e footer-from sejam arquivos diferentes
-# header-from: ./docs/HEADER-1.md       # Arquivo de cabeçalho para incluir no início da documentação
-# footer-from: ./docs/FOOTER-1.md       # Arquivo de rodapé para incluir no final da documentação
-header-from: ./../../../../../docs/HEADER-1.md       # Arquivo de cabeçalho para incluir no início da documentação
-footer-from: ./../../../../../docs/FOOTER-1.md       # Arquivo de rodapé para incluir no final da documentação
+header-from: ../docs/HEADER-1.md       # Arquivo de cabeçalho para incluir no início da documentação
+footer-from: ../docs/FOOTER-1.md       # Arquivo de rodapé para incluir no final da documentação
 
 sort:
   # Ordena os recursos do Terraform (por exemplo, variáveis, outputs) de forma alfabética
