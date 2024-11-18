@@ -1,0 +1,15 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    -   id: check-yaml
+#    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: sort-simple-yaml
+    -   id: pretty-format-json
+    -   id: detect-private-key
+#    -   id: detect-aws-credentials
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+    -   id: check-merge-conflict
+    -   id: destroyed-symlinks
