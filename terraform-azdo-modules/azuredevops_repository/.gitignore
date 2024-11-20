@@ -23,7 +23,3 @@ Thumbs.db
 .pre-commit-config.yaml
 .pre-commit-config.yaml.lock
 .pre-commit/
-
-# Ignorar as pastas de configuração e documentação
-/docs/
-/config/

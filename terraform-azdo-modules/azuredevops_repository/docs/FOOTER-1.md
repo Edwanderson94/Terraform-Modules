@@ -17,5 +17,5 @@ Agradecemos pela sua colaboração e interesse!
 
 ---
 
-**Desenvolvido por**  
+**Desenvolvido por**
 Edwanderson Luiz Pereira

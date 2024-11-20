@@ -1,10 +1,15 @@
-locals {
-  # Se criar múltiplos repositórios, utilizamos a lista fornecida diretamente
-  # Caso contrário, criamos um mapa com um único repositório
-  repositories_to_create = var.create_multiple_repositories ? var.repositories : [var.repositories[0]]
-}
-
 # Definindo a versão do módulo
 locals {
-  module_version = "1.1.0"
+  module_version = "1.0.0"
+}
+
+# Criando um mapa de repositórios onde a chave é o nome do repositório
+locals {
+  repositories_map = {
+    for repo in var.repositories :
+    repo.name => {
+      name           = repo.name
+      default_branch = repo.default_branch
+    }
+  }
 }
