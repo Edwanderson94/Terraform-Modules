@@ -7,4 +7,6 @@ terraform {
       version = "1.4.0"
     }
   }
+
+  backend "local" {} # Backend vazio para permitir o uso do Terragrunt
 }
