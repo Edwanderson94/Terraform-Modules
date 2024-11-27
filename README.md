@@ -1,14 +1,13 @@
 <!-- BEGIN_TF_DOCS -->
-# Repositório Terraform
+# Repositório Módulos Terraform
 
-Bem-vindo à documentação deste repositório Terraform! Este espaço foi criado para compartilhar as implementações realizadas ao longo da minha jornada como DevOps e SRE, explorando o uso dessa poderosa ferramenta de infraestrutura como código.
+Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
 
 ## Objetivo
 
 Este repositório tem como propósito centralizar módulos, documentações e exemplos práticos relacionados ao uso do Terraform. Aqui você encontrará:
 
 - **Módulos reutilizáveis** para provisionamento de recursos.
-- **Guia de comandos** para facilitar o uso do Terraform.
 - **Estruturas de implementação** aplicadas em plataformas como:
   - **Azure DevOps**
 
@@ -17,6 +16,8 @@ Explore, aprenda e contribua para expandir este repositório com ideias e melhor
 ---
 
 ### Azure DevOps
+
+O **Azure DevOps** é um conjunto de ferramentas e serviços da Microsoft voltado para o gerenciamento completo do ciclo de vida do desenvolvimento de software, com foco em integração contínua (CI), entrega contínua (CD) e colaboração entre equipes de desenvolvimento. Ele oferece uma plataforma baseada em nuvem usada para planejar, construir, testar e implantar aplicações, automatizando e agilizando os fluxos de trabalho das equipes.
 
 ### Módulos
 
@@ -35,7 +36,7 @@ Este módulo facilita a configuração e o provisionamento de repositórios em s
 
 # Considerações Finais
 
-Este repositório foi desenvolvido com o objetivo de oferecer uma infraestrutura mais robusta e escalável, utilizando Terraform de maneira simples e eficiente no universo dos providers. Aqui estão armazenadas estruturas, desenvolvimentos e documentações baseadas em minha experiência prática.
+Durante a criação deste módulo, encontrei algumas dificuldades no percurso, mas no final tudo deu certo. Validei o módulo criando repositórios no meu projeto, e funcionou muito bem. Espero que este módulo possa ajudar outras pessoas que tenham a mesma necessidade.
 
 ## Licença
 
