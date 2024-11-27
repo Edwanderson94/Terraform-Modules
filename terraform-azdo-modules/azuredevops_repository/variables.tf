@@ -30,3 +30,7 @@ variable "personal_access_token" {
   type        = string
   sensitive   = true
 }
+
+variable "project_name" {
+  description = "Nome do projeto no Azure DevOps"
+}
