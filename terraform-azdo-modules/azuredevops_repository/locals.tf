@@ -6,10 +6,10 @@ locals {
 # Criando um mapa de repositórios onde a chave é o nome do repositório
 locals {
   repositories_map = {
-    for repo in var.repositories :
-    repo.name => {
-      name           = repo.name
-      default_branch = repo.default_branch
+    for repo_key, repo_value in var.repositories :
+    repo_key => {
+      name           = repo_value.name
+      default_branch = repo_value.default_branch
     }
   }
 }
