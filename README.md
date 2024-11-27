@@ -36,7 +36,7 @@ Este módulo facilita a configuração e o provisionamento de repositórios em s
 
 # Considerações Finais
 
-Durante a criação deste módulo, encontrei algumas dificuldades no percurso, mas no final tudo deu certo. Validei o módulo criando repositórios no meu projeto, e funcionou muito bem. Espero que este módulo possa ajudar outras pessoas que tenham a mesma necessidade.
+A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
 
 ## Licença
 

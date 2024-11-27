@@ -1,19 +1,13 @@
 <!-- BEGIN_TF_DOCS -->
-# Repositório Terraform
+# Módulo `Terraform-AzureDevOps-Repository`
 
-Bem-vindo à documentação deste repositório Terraform! Este espaço foi criado para compartilhar as implementações realizadas ao longo da minha jornada como DevOps e SRE, explorando o uso dessa poderosa ferramenta de infraestrutura como código.
+Bem-vindo ao módulo Terraform para o Azure DevOps, projetado para facilitar a criação de múltiplos repositórios.
 
 ## Objetivo
 
-Este repositório tem como propósito centralizar módulos, documentações e exemplos práticos relacionados ao uso do Terraform. Aqui você encontrará:
-
-- **Módulos reutilizáveis** para provisionamento de recursos.
-- **Guia de comandos** para facilitar o uso do Terraform.
-- **Estruturas de implementação** aplicadas em plataformas como:
-  - **Azure DevOps**
-  - **AWS**
-
-Explore, aprenda e contribua para expandir este repositório com ideias e melhorias!
+Este módulo tem como propósito:
+- Provisionar múltiplos repositórios no Azure DevOps.
+- Configurar a branch padrão (*default branch*) para cada repositório criado.
 
 ## Requirements
 
@@ -56,7 +50,7 @@ No modules.
 
 # Considerações Finais
 
-Este repositório foi desenvolvido com o objetivo de oferecer uma infraestrutura mais robusta e escalável, utilizando Terraform de maneira simples e eficiente no universo dos providers. Aqui estão armazenadas estruturas, desenvolvimentos e documentações baseadas em minha experiência prática.
+Este módulo foi desenvolvido inicialmente para atender às necessidades dos meus projetos e estudos pessoais. No entanto, sua estrutura foi pensada de forma simples e funcional, permitindo a criação de múltiplos repositórios simultaneamente. Espero que este módulo também seja útil para outros desenvolvedores e profissionais que compartilhem da mesma necessidade.
 
 ## Licença
 
