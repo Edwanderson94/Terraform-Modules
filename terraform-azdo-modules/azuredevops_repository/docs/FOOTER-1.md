@@ -1,6 +1,6 @@
 # Considerações Finais
 
-Este repositório foi desenvolvido com o objetivo de oferecer uma infraestrutura mais robusta e escalável, utilizando Terraform de maneira simples e eficiente no universo dos providers. Aqui estão armazenadas estruturas, desenvolvimentos e documentações baseadas em minha experiência prática.
+Este módulo foi desenvolvido inicialmente para atender às necessidades dos meus projetos e estudos pessoais. No entanto, sua estrutura foi pensada de forma simples e funcional, permitindo a criação de múltiplos repositórios simultaneamente. Espero que este módulo também seja útil para outros desenvolvedores e profissionais que compartilhem da mesma necessidade.
 
 ## Licença
 
