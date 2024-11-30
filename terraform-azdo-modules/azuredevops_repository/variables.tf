@@ -10,10 +10,10 @@ variable "repositories" {
   }))
 }
 
-variable "project_id" {
-  description = "ID do projeto no Azure DevOps"
-  type        = string
-}
+# variable "project_id" {
+#   description = "ID do projeto no Azure DevOps"
+#   type        = string
+# }
 
 variable "org_service_url" {
   description = "URL da sua organization no Azure DevOps"

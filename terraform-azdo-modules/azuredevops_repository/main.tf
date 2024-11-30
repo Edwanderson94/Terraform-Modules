@@ -7,7 +7,7 @@
 resource "azuredevops_git_repository" "repositories" {
   for_each = local.repositories_map
 
-  project_id     = var.project_id
+  project_id     = data.azuredevops_project.project_infra.id
   name           = each.value.name
   default_branch = "refs/heads/${each.value.default_branch}"
 
