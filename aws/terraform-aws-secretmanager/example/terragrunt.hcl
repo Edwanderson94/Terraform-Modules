@@ -1,5 +1,5 @@
 module "secret_manager" {
-  source = "../../aws/secret-manager"
+  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=develop"
 
   secrets = {
     "azuredevops/terraform/" = "password123"
