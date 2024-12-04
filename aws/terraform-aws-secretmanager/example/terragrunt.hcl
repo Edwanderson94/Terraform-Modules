@@ -1,13 +1,11 @@
-module "secret_manager" {
+terraform {
   source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=develop"
+}
 
+inputs = {
+  aws_profile  = "default" # Mesmo valor definido no arquivo credentials
+  region       = "sa-east-1"
   secrets = {
     "azuredevops/terraform/" = "password123"
   }
-
-  region = "sa-east-1"
-}
-
-output "created_secret_ids" {
-  value = module.secret_manager.secret_ids
 }

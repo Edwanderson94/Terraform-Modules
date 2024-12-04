@@ -4,7 +4,12 @@ variable "secrets" {
 }
 
 variable "region" {
-  description = "Região onde os secrets serão armazenados"
+  description = "Região da AWS para os recursos"
   type        = string
-  default     = "us-east-1"
+}
+
+variable "aws_profile" {
+  description = "Perfil AWS do CLI a ser usado"
+  type        = string
+  default     = null
 }
