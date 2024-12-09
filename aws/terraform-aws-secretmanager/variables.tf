@@ -11,5 +11,12 @@ variable "region" {
 variable "aws_profile" {
   description = "Perfil AWS do CLI a ser usado"
   type        = string
-  default     = null
+  default     = "default"
 }
+
+# variable "secrets" {
+#   description = "Mapa de secrets e seus valores"
+#   default = {
+#     "azuredevops/terraform/" = "password123"
+#   }
+# }
