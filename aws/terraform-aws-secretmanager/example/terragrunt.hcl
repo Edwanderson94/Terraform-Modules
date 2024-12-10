@@ -3,7 +3,6 @@ terraform {
 }
 
 inputs = {
-  aws_profile = "default"
   region      = "sa-east-1"
   secrets = {
     "azuredevops/terraform/" = "password123"
