@@ -2,7 +2,7 @@ resource "aws_secretsmanager_secret" "secret" {
   for_each = { for secret_name, secret_value in var.secrets : secret_name => secret_value }
 
   name        = each.key
-  description = "Secret for ${each.key}"
+  description = "Secret para ${each.key}"
   recovery_window_in_days  = lookup(var.recovery_windows, each.key, var.default_recovery_window_in_days)
 }
 
