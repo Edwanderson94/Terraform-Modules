@@ -7,4 +7,10 @@ inputs = {
   secrets = {
     "azuredevops/terraform/" = "password123"
   }
+
+  recovery_windows = {
+    "azuredevops/terraform/" = 8
+  }
+
+  default_recovery_window_in_days = 7
 }
