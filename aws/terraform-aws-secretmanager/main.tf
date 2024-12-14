@@ -3,6 +3,7 @@ resource "aws_secretsmanager_secret" "secret" {
 
   name        = each.key
   description = "Secret for ${each.key}"
+  recovery_window_in_days  = lookup(var.recovery_windows, each.key, var.default_recovery_window_in_days)
 }
 
 resource "aws_secretsmanager_secret_version" "secret_version" {
