@@ -8,7 +8,6 @@ Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo
 </p>
 
 ![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
-
 ### Objetivo
 
 Este repositório tem como propósito centralizar módulos, documentações e exemplos práticos relacionados ao uso do Terraform. Aqui você encontrará:
@@ -19,14 +18,12 @@ Este repositório tem como propósito centralizar módulos, documentações e ex
   - **AWS**
 
 Explore, aprenda e contribua para expandir este repositório com ideias e melhorias!
-
 ### Azure DevOps
 
 O **Azure DevOps** é um conjunto de ferramentas e serviços da Microsoft voltado para o gerenciamento completo do ciclo de vida do desenvolvimento de software, com foco em integração contínua (CI), entrega contínua (CD) e colaboração entre equipes de desenvolvimento. Ele oferece uma plataforma baseada em nuvem usada para planejar, construir, testar e implantar aplicações, automatizando e agilizando os fluxos de trabalho das equipes.
-
 ### Módulos
 
-Dentro da pasta **terraform-azdo-modules**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
+Dentro da pasta **azure_devops**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
 
 #### 1. **azuredevops_repository**
 
@@ -36,9 +33,11 @@ Este módulo permite a criação de repositórios no Azure DevOps de maneira aut
 - Definir a branch **default** do repositório, ajustando conforme suas necessidades.
 
 Este módulo facilita a configuração e o provisionamento de repositórios em sua organização, garantindo uma gestão eficiente e padronizada.
+### Módulos
 
+Dentro da pasta **aws**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
 
-#### 2. **aws_secret-manager**
+#### 1. **aws_secret-manager**
 
 Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de secrets na AWS de forma automatizada e eficiente. Com ele, você pode realizar diversas ações simultaneamente, como:
 
@@ -48,7 +47,6 @@ Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de 
 - Opcionalmente, atribuir um valor inicial ao secret (atenção: isso pode expor a senha no código; recomenda-se definir a senha posteriormente via console AWS para maior segurança).
 
 Este módulo torna a configuração e o provisionamento de secrets mais rápidos e organizados, auxiliando no gerenciamento seguro de credenciais e informações sensíveis.
-
 ### Contribuição
 
 Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
@@ -57,7 +55,6 @@ Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instru
 2. Caso encontre algum erro ou tenha sugestões, crie uma *issue* no repositório.
 
 Agradecemos pela sua colaboração e interesse!
-
 ## Autores
 
 - [@Edwanderson94](https://github.com/Edwanderson94)
