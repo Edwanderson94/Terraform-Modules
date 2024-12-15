@@ -1,19 +1,24 @@
-<!-- BEGIN_TF_DOCS -->
-# Repositório Módulos Terraform
+
+### Repositório Módulos Terraform
 
 Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
 
-## Objetivo
+<p>
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
+</p>
+
+![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
+
+### Objetivo
 
 Este repositório tem como propósito centralizar módulos, documentações e exemplos práticos relacionados ao uso do Terraform. Aqui você encontrará:
 
 - **Módulos reutilizáveis** para provisionamento de recursos.
 - **Estruturas de implementação** aplicadas em plataformas como:
   - **Azure DevOps**
+  - **AWS**
 
 Explore, aprenda e contribua para expandir este repositório com ideias e melhorias!
-
----
 
 ### Azure DevOps
 
@@ -32,17 +37,19 @@ Este módulo permite a criação de repositórios no Azure DevOps de maneira aut
 
 Este módulo facilita a configuração e o provisionamento de repositórios em sua organização, garantindo uma gestão eficiente e padronizada.
 
----
 
-# Considerações Finais
+#### 2. **aws_secret-manager**
 
-A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
+Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de secrets na AWS de forma automatizada e eficiente. Com ele, você pode realizar diversas ações simultaneamente, como:
 
-## Licença
+- Criar múltiplos secrets na AWS em uma única execução.
+- Definir o nome de cada secret de forma personalizada.
+- Configurar o número de dias para o recovery window (janela de recuperação).
+- Opcionalmente, atribuir um valor inicial ao secret (atenção: isso pode expor a senha no código; recomenda-se definir a senha posteriormente via console AWS para maior segurança).
 
-Este módulo está licenciado sob MIT. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
+Este módulo torna a configuração e o provisionamento de secrets mais rápidos e organizados, auxiliando no gerenciamento seguro de credenciais e informações sensíveis.
 
-## Contribuição
+### Contribuição
 
 Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
 
@@ -51,8 +58,11 @@ Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instru
 
 Agradecemos pela sua colaboração e interesse!
 
----
+## Autores
 
-**Desenvolvido por**
-Edwanderson Luiz Pereira
-<!-- END_TF_DOCS -->
+- [@Edwanderson94](https://github.com/Edwanderson94)
+
+
+### Considerações Finais
+
+A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
