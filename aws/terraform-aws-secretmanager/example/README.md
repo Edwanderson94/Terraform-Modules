@@ -5,8 +5,6 @@ Este exemplo apresenta um código **Terragrunt** que utiliza um módulo **Terraf
 
 <p>
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
-  <img src="https://img.shields.io/badge/License-GPL%20v3-yellow.svg" alt="GPLv3 License" />
-  <img src="https://img.shields.io/badge/license-AGPL-blue.svg" alt="AGPL License" />
 </p>
 
 ![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
@@ -23,7 +21,7 @@ O código utiliza o Terragrunt para encapsular e gerenciar a chamada ao módulo 
 ```hcl
 
 terraform {
-  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=develop"
+  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=main"
 }
 
 inputs = {
@@ -40,12 +38,6 @@ inputs = {
 }
 
 ```
-
-
-### Demonstração
-
-Insira um gif ou um link de alguma demonstração
-
 
 ### Stack utilizada
 
