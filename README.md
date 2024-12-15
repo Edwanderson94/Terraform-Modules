@@ -1,5 +1,5 @@
 
-### Repositório Módulos Terraform
+## Repositório Módulos Terraform
 
 Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
 
@@ -20,15 +20,19 @@ Este repositório tem como propósito centralizar módulos, documentações e ex
 
 Explore, aprenda e contribua para expandir este repositório com ideias e melhorias!
 
+---
+
 ### Azure DevOps
 
 O **Azure DevOps** é um conjunto de ferramentas e serviços da Microsoft voltado para o gerenciamento completo do ciclo de vida do desenvolvimento de software, com foco em integração contínua (CI), entrega contínua (CD) e colaboração entre equipes de desenvolvimento. Ele oferece uma plataforma baseada em nuvem usada para planejar, construir, testar e implantar aplicações, automatizando e agilizando os fluxos de trabalho das equipes.
+
+---
 
 ### Módulos Azure DevOps
 
 Dentro da pasta **azure_devops**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
 
-#### 1. **azuredevops_repository**
+#### 1. **terraform-azuredevops-repositorios**
 
 Este módulo permite a criação de repositórios no Azure DevOps de maneira automatizada. Com ele, é possível realizar várias ações de uma única vez, como:
 
@@ -37,11 +41,13 @@ Este módulo permite a criação de repositórios no Azure DevOps de maneira aut
 
 Este módulo facilita a configuração e o provisionamento de repositórios em sua organização, garantindo uma gestão eficiente e padronizada.
 
+---
+
 ### Módulos AWS 
 
 Dentro da pasta **aws**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
 
-#### 1. **aws_secret-manager**
+#### 1. **terraform-aws-secretmanager**
 
 Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de secrets na AWS de forma automatizada e eficiente. Com ele, você pode realizar diversas ações simultaneamente, como:
 
@@ -52,6 +58,8 @@ Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de 
 
 Este módulo torna a configuração e o provisionamento de secrets mais rápidos e organizados, auxiliando no gerenciamento seguro de credenciais e informações sensíveis.
 
+---
+
 ### Contribuição
 
 Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
@@ -61,10 +69,11 @@ Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instru
 
 Agradecemos pela sua colaboração e interesse!
 
-## Autores
+### Autores
 
 - [@Edwanderson94](https://github.com/Edwanderson94)
 
+---
 
 ### Considerações Finais
 
