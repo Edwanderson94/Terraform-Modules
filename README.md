@@ -69,7 +69,7 @@ Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instru
 
 Agradecemos pela sua colaboração e interesse!
 
-## Autores
+### Autores
 
 - [@Edwanderson94](https://github.com/Edwanderson94)
 
