@@ -1,12 +1,4 @@
-# Considerações Finais
-
-Este módulo foi desenvolvido inicialmente para atender às necessidades dos meus projetos e estudos pessoais. No entanto, sua estrutura foi pensada de forma simples e funcional, permitindo a criação de múltiplos repositórios simultaneamente. Espero que este módulo também seja útil para outros desenvolvedores e profissionais que compartilhem da mesma necessidade.
-
-## Licença
-
-Este módulo está licenciado sob MIT. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
-
-## Contribuição
+### Contribuição
 
 Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
 
@@ -15,7 +7,11 @@ Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instru
 
 Agradecemos pela sua colaboração e interesse!
 
----
+## Autores
 
-**Desenvolvido por**
-Edwanderson Luiz Pereira
+- [@Edwanderson94](https://github.com/Edwanderson94)
+
+
+### Considerações Finais
+
+A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
