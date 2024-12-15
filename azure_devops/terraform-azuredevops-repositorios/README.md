@@ -1,13 +1,13 @@
 <!-- BEGIN_TF_DOCS -->
-# Módulo `Terraform-AzureDevOps-Repositório`
+### Repositório Módulos Terraform
 
-Bem-vindo ao módulo Terraform para o Azure DevOps, projetado para facilitar a criação de múltiplos repositórios.
+Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
 
-## Objetivo
+<p>
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
+</p>
 
-Este módulo tem como propósito:
-- Provisionar múltiplos repositórios no Azure DevOps.
-- Configurar a branch padrão (*default branch*) para cada repositório criado.
+![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
 
 ## Requirements
 
@@ -49,15 +49,7 @@ No modules.
 | <a name="output_module_version"></a> [module\_version](#output\_module\_version) | Versão do módulo |
 | <a name="output_repository_urls"></a> [repository\_urls](#output\_repository\_urls) | Lista de URLs dos repositórios criados |
 
-# Considerações Finais
-
-Este módulo foi desenvolvido inicialmente para atender às necessidades dos meus projetos e estudos pessoais. No entanto, sua estrutura foi pensada de forma simples e funcional, permitindo a criação de múltiplos repositórios simultaneamente. Espero que este módulo também seja útil para outros desenvolvedores e profissionais que compartilhem da mesma necessidade.
-
-## Licença
-
-Este módulo está licenciado sob MIT. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
-
-## Contribuição
+### Contribuição
 
 Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
 
@@ -66,8 +58,11 @@ Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instru
 
 Agradecemos pela sua colaboração e interesse!
 
----
+## Autores
 
-**Desenvolvido por**
-Edwanderson Luiz Pereira
+- [@Edwanderson94](https://github.com/Edwanderson94)
+
+### Considerações Finais
+
+A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
 <!-- END_TF_DOCS -->
