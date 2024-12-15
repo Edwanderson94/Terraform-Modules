@@ -20,10 +20,6 @@ O código utiliza o Terragrunt para encapsular e gerenciar a chamada ao módulo 
 
 ```hcl
 
-include {
-  path = find_in_parent_folders()
-}
-
 terraform {
   source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=main"
 }
