@@ -1,7 +1,7 @@
 
 ## Terragrunt para Gerenciamento de Segredos na AWS
 
-Este exemplo apresenta um código **Terragrunt** que utiliza um módulo **Terraform** para criar e gerenciar segredos no **AWS Secrets Manager**. A solução foi projetada para simplificar a configuração e garantir o gerenciamento seguro e eficiente de segredos, permitindo a criação de múltiplos segredos no mesmo código com facilidade.
+Este exemplo apresenta um código **Terragrunt** que utiliza um módulo **Terraform** para criar e gerencia o recurso **Azure Repos**.
 
 <p>
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
@@ -12,7 +12,8 @@ Este exemplo apresenta um código **Terragrunt** que utiliza um módulo **Terraf
 
 ### Pré-requisito
 
-É necessário configurar o AWS CLI no sistema operacional utilizando o comando `aws configure`. Essa etapa é fundamental para fornecer as credenciais de autenticação da AWS, pois o módulo depende do **provider AWS** para funcionar corretamente.
+Para executar este código, é necessário que o Terragrunt esteja configurado no sistema operacional. O Terragrunt é uma ferramenta que estende o Terraform, facilitando o uso de módulos e a gestão de configurações em múltiplos ambientes.
+
 
 ### Utilização e Exemplo
 
@@ -20,38 +21,51 @@ O código utiliza o Terragrunt para encapsular e gerenciar a chamada ao módulo 
 
 ```hcl
 
+# Inclui o arquivo terragrunt.hcl do diretório raiz
+include {
+  path = find_in_parent_folders()
+}
+
 terraform {
-  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=main"
+  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//terraform-azdo-modules/azuredevops_repository?ref=<versao-modulo>>"
 }
 
 inputs = {
-  region      = "sa-east-1"
-  secrets = {
-    "azuredevops/terraform/" = "password123"
-  }
+  project_name          = "nome-do-seu-projeto"
+  org_service_url       = "https://dev.azure.com/nome-do-seu-projeto"
+  personal_access_token = "seu-token-pat-do-azure-devops"
 
-  recovery_windows = {
-    "azuredevops/terraform/" = 8
-  }
+  repositories = {
+    "repo-01" = {
+      name           = "repo-01"
+      default_branch = "main"
+    },
 
-  default_recovery_window_in_days = 7
+    "repo-02" = {
+      name           = "repo-02"
+      default_branch = "dev"
+    },
+
+    "repo-03" = {
+      name           = "repo-03"
+      default_branch = "uat"
+    }
+  }
 }
 
 ```
 
 ### Stack utilizada
 
-- **Infraestrutura como Código (IaC):** Terraform, Terragrunt  
-- **Cloud Provider:** AWS  
-- **Gerenciamento de Segredos:** AWS Secrets Manager  
-- **Gerenciamento de Módulos:** Repositórios no GitHub  
+- Infraestrutura como Código (IaC): Terraform, Terragrunt
+- Cloud Provider: Azure
+- Serviço: Azure DevOps
+- Recurso: Azure Repos
+- Repositório do Módulo: GitHub 
 
 ### Referências
-
- - [AWS - Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
  - [Gruntwork.oi - Terragrunt](https://terragrunt.gruntwork.io/docs/)
- - [HashCorp - Terraform Secret Manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret)
-
+ - [HashCorp - Terraform Azure DevOps](https://registry.terraform.io/providers/microsoft/azuredevops/latest)
 
 ### Contribuindo
 
@@ -70,4 +84,6 @@ Agradecemos pela sua colaboração e interesse!
 
 ### Considerações Finais
 
-Neste projeto, tive a oportunidade de aprofundar meus conhecimentos em **Terraform** e **Terragrunt**, aplicando-os ao gerenciamento de segredos na AWS por meio do **AWS Secrets Manager**. Durante o desenvolvimento, explorei conceitos como configuração de regiões, gerenciamento de janelas de recuperação e provisionamento de múltiplos segredos, o que me permitiu criar um fluxo mais eficiente e seguro.
+Neste projeto, aprofundei meus conhecimentos em Terraform e Terragrunt, aplicando-os ao gerenciamento de recursos no Azure Repos. Durante o desenvolvimento, trabalhei com conceitos importantes, como a configuração de branches, permitindo definir automaticamente a branch padrão logo após a criação de um repositório no Azure DevOps.
+
+Essa abordagem simplifica o gerenciamento de repositórios e contribui para uma configuração mais eficiente e padronizada.
