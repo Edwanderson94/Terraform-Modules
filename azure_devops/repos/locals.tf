@@ -1,5 +1,5 @@
 locals {
-  module_version = "1.1.0"
+  module_version = "1.3.0"
 }
 
 locals {
@@ -10,4 +10,6 @@ locals {
       default_branch = repo.default_branch
     }
   }
+
+  repository_branches = distinct(var.repository_branches)
 }

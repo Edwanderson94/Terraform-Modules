@@ -14,3 +14,8 @@ output "repository_urls" {
     key => repo.web_url
   }
 }
+
+output "repository_branches" {
+  description = "Branches padronizadas nos repositorios gerenciados"
+  value       = local.repository_branches
+}
