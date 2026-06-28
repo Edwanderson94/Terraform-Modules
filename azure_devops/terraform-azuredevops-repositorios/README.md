@@ -1,68 +1,78 @@
-<!-- BEGIN_TF_DOCS -->
-### Repositório Módulos Terraform
+# terraform-azuredevops-repositorios
 
-Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
+Modulo Terraform para criar e renomear repositorios no Azure DevOps.
 
-<p>
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
-</p>
+## Acoes suportadas
 
-![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
+- Criar repositorios em um projeto Azure DevOps existente.
+- Alterar o nome de repositorios ja gerenciados pelo Terraform.
+- Definir a branch padrao por repositorio.
+- Expor as URLs dos repositorios gerenciados.
 
-## Requirements
+## Como renomear repositorios com seguranca
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0, < 2.0 |
-| <a name="requirement_azuredevops"></a> [azuredevops](#requirement\_azuredevops) | 1.4.0 |
+O modulo usa `for_each` sobre o mapa `repositories`. A chave do mapa e o endereco
+estavel do recurso no state. Para renomear, preserve a chave e altere apenas
+`name`.
 
-## Providers
+```hcl
+repositories = {
+  gcp = {
+    name           = "cloud-gcp-infra"
+    default_branch = "main"
+  }
+}
+```
 
-| Name | Version |
-|------|---------|
-| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 1.4.0 |
+Evite trocar a chave `gcp`, porque isso faria o Terraform entender como outro
+recurso.
 
-## Modules
+## Uso com Terragrunt
 
-No modules.
+```hcl
+terraform {
+  source = get_env(
+    "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/terraform-azuredevops-repositorios?ref=develop"
+  )
+}
 
-## Resources
+inputs = {
+  project_name          = "Infrastructure"
+  org_service_url       = get_env("AZDO_ORG_SERVICE_URL", "https://dev.azure.com/Tecnoform")
+  personal_access_token = get_env("AZDO_PERSONAL_ACCESS_TOKEN")
 
-| Name | Type |
-|------|------|
-| [azuredevops_git_repository.repositories](https://registry.terraform.io/providers/microsoft/azuredevops/1.4.0/docs/resources/git_repository) | resource |
-| [azuredevops_project.project_infra](https://registry.terraform.io/providers/microsoft/azuredevops/1.4.0/docs/data-sources/project) | data source |
+  repositories = {
+    aws = {
+      name           = "cloud-aws-infra"
+      default_branch = "main"
+    }
+  }
+}
+```
+
+Em pipelines produtivos, prefira usar uma tag ou commit imutavel no `source`, ou
+aponte `TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE` para um checkout controlado
+do repo `Terraform-Modules`.
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_org_service_url"></a> [org\_service\_url](#input\_org\_service\_url) | URL da sua organization no Azure DevOps | `string` | n/a | yes |
-| <a name="input_personal_access_token"></a> [personal\_access\_token](#input\_personal\_access\_token) | PAT de acesso a sua organization no Azure DevOps | `string` | n/a | yes |
-| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Nome do projeto no Azure DevOps | `any` | n/a | yes |
-| <a name="input_repositories"></a> [repositories](#input\_repositories) | Lista de repositórios a serem criados | <pre>map(object({<br/>    name           = string<br/>    default_branch = string<br/>  }))</pre> | n/a | yes |
+| Nome | Tipo | Descricao |
+| --- | --- | --- |
+| `project_name` | `string` | Nome do projeto Azure DevOps. |
+| `org_service_url` | `string` | URL da organizacao Azure DevOps. |
+| `personal_access_token` | `string` | PAT do Azure DevOps. Valor sensivel. |
+| `repositories` | `map(object)` | Mapa de repositorios com chave logica estavel, nome e branch padrao. |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_module_version"></a> [module\_version](#output\_module\_version) | Versão do módulo |
-| <a name="output_repository_urls"></a> [repository\_urls](#output\_repository\_urls) | Lista de URLs dos repositórios criados |
+| Nome | Descricao |
+| --- | --- |
+| `module_version` | Versao interna do modulo. |
+| `repository_urls` | URLs dos repositorios gerenciados, indexadas pela chave logica. |
 
-### Contribuição
+## Requisitos
 
-Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
-
-1. Envie pull requests com suas alterações ou melhorias.
-2. Caso encontre algum erro ou tenha sugestões, crie uma *issue* no repositório.
-
-Agradecemos pela sua colaboração e interesse!
-
-## Autores
-
-- [@Edwanderson94](https://github.com/Edwanderson94)
-
-### Considerações Finais
-
-A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
-<!-- END_TF_DOCS -->
+- Terraform `>= 1.0, < 2.0`.
+- Provider `microsoft/azuredevops` `1.4.0`.
+- Projeto Azure DevOps ja existente.
