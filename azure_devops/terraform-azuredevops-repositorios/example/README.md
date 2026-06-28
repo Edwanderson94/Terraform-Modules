@@ -1,89 +1,63 @@
+## Exemplo Terragrunt para Azure Repos
 
-## Terragrunt para Gerenciamento de Segredos na AWS
+Este exemplo mostra como consumir o modulo `terraform-azuredevops-repositorios` para criar e renomear repositorios no Azure DevOps.
 
-Este exemplo apresenta um código **Terragrunt** que utiliza um módulo **Terraform** para criar e gerencia o recurso **Azure Repos**.
-
-<p>
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
-</p>
-
-![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
-
-
-### Pré-requisito
-
-Para executar este código, é necessário que o Terragrunt esteja configurado no sistema operacional. O Terragrunt é uma ferramenta que estende o Terraform, facilitando o uso de módulos e a gestão de configurações em múltiplos ambientes.
-
-
-### Utilização e Exemplo
-
-O código utiliza o Terragrunt para encapsular e gerenciar a chamada ao módulo Terraform.
+O ponto principal e manter a chave do mapa `repositories` estavel. Para renomear um repositorio ja gerenciado, altere apenas o campo `name` e preserve a chave logica, como `aws`, `oci`, `azure` ou `gcp`.
 
 ```hcl
-
-# Inclui o arquivo terragrunt.hcl do diretório raiz
+# Inclui o arquivo terragrunt.hcl do diretorio raiz
 include {
   path = find_in_parent_folders()
 }
 
 terraform {
-  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//terraform-azdo-modules/azuredevops_repository?ref=<versao-modulo>>"
+  source = get_env(
+    "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/terraform-azuredevops-repositorios?ref=develop"
+  )
 }
 
-inputs = {
-  project_name          = "nome-do-seu-projeto"
-  org_service_url       = "https://dev.azure.com/nome-do-seu-projeto"
-  personal_access_token = "seu-token-pat-do-azure-devops"
+locals {
+  repository_names = {
+    aws   = "cloud-aws-infra"
+    oci   = "cloud-oci-infra"
+    azure = "cloud-azure-infra"
+    gcp   = "cloud-gcp-infra"
+  }
+
+  repository_default_branches = {
+    aws   = "main"
+    oci   = "develop"
+    azure = "uat"
+    gcp   = "main"
+  }
 
   repositories = {
-    "repo-01" = {
-      name           = "repo-01"
-      default_branch = "main"
-    },
-
-    "repo-02" = {
-      name           = "repo-02"
-      default_branch = "dev"
-    },
-
-    "repo-03" = {
-      name           = "repo-03"
-      default_branch = "uat"
+    for key, name in local.repository_names : key => {
+      name           = name
+      default_branch = local.repository_default_branches[key]
     }
   }
 }
 
+inputs = {
+  project_name          = "nome-do-seu-projeto"
+  org_service_url       = get_env("AZDO_ORG_SERVICE_URL", "https://dev.azure.com/nome-da-sua-organizacao")
+  personal_access_token = get_env("AZDO_PERSONAL_ACCESS_TOKEN")
+  repositories          = local.repositories
+}
 ```
 
-### Stack utilizada
+### Acoes suportadas
 
-- Infraestrutura como Código (IaC): Terraform, Terragrunt
-- Cloud Provider: Azure
-- Serviço: Azure DevOps
-- Recurso: Azure Repos
-- Repositório do Módulo: GitHub 
+- Criar repositorios no Azure DevOps.
+- Alterar o nome de repositorios gerenciados mantendo a mesma chave logica no mapa `repositories`.
+- Definir a branch padrao por repositorio.
 
-### Referências
- - [Gruntwork.oi - Terragrunt](https://terragrunt.gruntwork.io/docs/)
- - [HashCorp - Terraform Azure DevOps](https://registry.terraform.io/providers/microsoft/azuredevops/latest)
+### Variaveis esperadas em pipeline
 
-### Contribuindo
+- `AZDO_ORG_SERVICE_URL`: URL da organizacao Azure DevOps.
+- `AZDO_PERSONAL_ACCESS_TOKEN`: PAT usado pelo provider Azure DevOps.
+- `TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE`: source opcional do modulo. Use para apontar para checkout local do repo `Terraform-Modules` em pipelines multi-repo.
 
-Contribuições são sempre bem-vindas! Se você deseja colaborar, siga os seguintes passos:
-
-1. Envie pull requests com suas alterações ou melhorias.
-2. Caso encontre algum erro ou tenha sugestões, crie uma *issue* no repositório.
-
-Agradecemos pela sua colaboração e interesse!
-
-
-### Autores
-
-- [@Edwanderson94](https://github.com/Edwanderson94)
-
-
-### Considerações Finais
-
-Neste projeto, aprofundei meus conhecimentos em Terraform e Terragrunt, aplicando-os ao gerenciamento de recursos no Azure Repos. Durante o desenvolvimento, trabalhei com conceitos importantes, como a configuração de branches, permitindo definir automaticamente a branch padrão logo após a criação de um repositório no Azure DevOps.
-
-Essa abordagem simplifica o gerenciamento de repositórios e contribui para uma configuração mais eficiente e padronizada.
+Em pipelines produtivos, prefira apontar o source para uma tag ou commit imutavel do repo `Terraform-Modules`.

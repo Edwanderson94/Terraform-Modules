@@ -1,31 +1,41 @@
-# Inclui o arquivo terragrunt.hcl do diretório raiz
+# Inclui o arquivo terragrunt.hcl do diretorio raiz
 include {
   path = find_in_parent_folders()
 }
 
 terraform {
-  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//terraform-azdo-modules/azuredevops_repository?ref=<versao-modulo>>"
+  source = get_env(
+    "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/terraform-azuredevops-repositorios?ref=develop"
+  )
+}
+
+locals {
+  repository_names = {
+    aws   = "cloud-aws-infra"
+    oci   = "cloud-oci-infra"
+    azure = "cloud-azure-infra"
+    gcp   = "cloud-gcp-infra"
+  }
+
+  repository_default_branches = {
+    aws   = "main"
+    oci   = "develop"
+    azure = "uat"
+    gcp   = "main"
+  }
+
+  repositories = {
+    for key, name in local.repository_names : key => {
+      name           = name
+      default_branch = local.repository_default_branches[key]
+    }
+  }
 }
 
 inputs = {
   project_name          = "nome-do-seu-projeto"
-  org_service_url       = "https://dev.azure.com/nome-do-seu-projeto"
-  personal_access_token = "seu-token-pat-do-azure-devops"
-
-  repositories = {
-    "repo-01" = {
-      name           = "repo-01"
-      default_branch = "main"
-    },
-
-    "repo-02" = {
-      name           = "repo-02"
-      default_branch = "dev"
-    },
-
-    "repo-03" = {
-      name           = "repo-03"
-      default_branch = "uat"
-    }
-  }
+  org_service_url       = get_env("AZDO_ORG_SERVICE_URL", "https://dev.azure.com/nome-da-sua-organizacao")
+  personal_access_token = get_env("AZDO_PERSONAL_ACCESS_TOKEN")
+  repositories          = local.repositories
 }

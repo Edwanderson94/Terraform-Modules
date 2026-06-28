@@ -3,17 +3,12 @@
 # ================================================================
 
 variable "repositories" {
-  description = "Lista de repositórios a serem criados"
+  description = "Mapa de repositorios gerenciados. Use uma chave logica estavel para permitir renomear o repositorio alterando apenas o campo name"
   type = map(object({
     name           = string
     default_branch = string
   }))
 }
-
-# variable "project_id" {
-#   description = "ID do projeto no Azure DevOps"
-#   type        = string
-# }
 
 variable "org_service_url" {
   description = "URL da sua organization no Azure DevOps"
@@ -28,4 +23,5 @@ variable "personal_access_token" {
 
 variable "project_name" {
   description = "Nome do projeto no Azure DevOps"
+  type        = string
 }

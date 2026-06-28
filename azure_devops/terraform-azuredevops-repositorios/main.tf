@@ -1,8 +1,8 @@
 # ================================================================
 # Owner: Edwanderson
-# Description: Módulo de Criação de Repositórios
-# Project: Módulo de Terraform para Azure DevOps
-# =================================================================
+# Description: Module for creating and renaming Azure DevOps repositories
+# Project: Terraform module for Azure DevOps
+# ================================================================
 
 resource "azuredevops_git_repository" "repositories" {
   for_each = local.repositories_map
