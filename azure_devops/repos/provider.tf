@@ -6,6 +6,11 @@ terraform {
       source  = "microsoft/azuredevops"
       version = "1.4.0"
     }
+
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.2"
+    }
   }
 
   # Bloco de backend vazio, para o terragrunt capturar.

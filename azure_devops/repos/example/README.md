@@ -13,7 +13,7 @@ include {
 terraform {
   source = get_env(
     "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
-    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/terraform-azuredevops-repositorios?ref=develop"
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=develop"
   )
 }
 
@@ -25,17 +25,13 @@ locals {
     gcp   = "cloud-gcp-infra"
   }
 
-  repository_default_branches = {
-    aws   = "main"
-    oci   = "develop"
-    azure = "uat"
-    gcp   = "main"
-  }
+  repository_default_branch = "master"
+  repository_branches       = ["develop", "homolog", "master"]
 
   repositories = {
     for key, name in local.repository_names : key => {
       name           = name
-      default_branch = local.repository_default_branches[key]
+      default_branch = local.repository_default_branch
     }
   }
 }
@@ -45,6 +41,10 @@ inputs = {
   org_service_url       = get_env("AZDO_ORG_SERVICE_URL", "https://dev.azure.com/nome-da-sua-organizacao")
   personal_access_token = get_env("AZDO_PERSONAL_ACCESS_TOKEN")
   repositories          = local.repositories
+  repository_branches   = local.repository_branches
+
+  repository_branch_renames     = {}
+  repository_branches_to_delete = {}
 }
 ```
 
@@ -52,7 +52,9 @@ inputs = {
 
 - Criar repositorios no Azure DevOps.
 - Alterar o nome de repositorios gerenciados mantendo a mesma chave logica no mapa `repositories`.
-- Definir a branch padrao por repositorio.
+- Criar, renomear e deletar branches declaradas por repositorio.
+- Padronizar as branches `develop`, `homolog` e `master`.
+- Definir `master` como branch padrao por repositorio.
 
 ### Variaveis esperadas em pipeline
 

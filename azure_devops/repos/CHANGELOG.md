@@ -9,6 +9,9 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 
 ### Adicionado
 
+- Padronizacao de branches `develop`, `homolog` e `master` nos repositorios gerenciados.
+- Configuracao de `master` como branch padrao via execucao idempotente no Azure DevOps.
+- Opcoes para criar, renomear e deletar branches por repositorio.
 - Suporte documentado para renomear repositorios mantendo uma chave logica estavel no mapa `repositories`.
 - Configuracao inicial de modulos Terraform para criacao de recursos no AWS S3.
 - Template basico para definicao e reutilizacao de modulos Terraform.

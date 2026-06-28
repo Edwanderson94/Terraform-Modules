@@ -6,7 +6,11 @@ Modulo Terraform para criar e renomear repositorios no Azure DevOps.
 
 - Criar repositorios em um projeto Azure DevOps existente.
 - Alterar o nome de repositorios ja gerenciados pelo Terraform.
-- Definir a branch padrao por repositorio.
+- Criar branches declaradas em `repository_branches`.
+- Renomear branches por repositorio com `repository_branch_renames`.
+- Deletar branches por repositorio com `repository_branches_to_delete`.
+- Padronizar as branches `develop`, `homolog` e `master`.
+- Definir `master` como branch padrao por repositorio.
 - Expor as URLs dos repositorios gerenciados.
 
 ## Como renomear repositorios com seguranca
@@ -19,7 +23,7 @@ estavel do recurso no state. Para renomear, preserve a chave e altere apenas
 repositories = {
   gcp = {
     name           = "cloud-gcp-infra"
-    default_branch = "main"
+    default_branch = "master"
   }
 }
 ```
@@ -33,7 +37,7 @@ recurso.
 terraform {
   source = get_env(
     "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
-    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/terraform-azuredevops-repositorios?ref=develop"
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=develop"
   )
 }
 
@@ -45,8 +49,20 @@ inputs = {
   repositories = {
     aws = {
       name           = "cloud-aws-infra"
-      default_branch = "main"
+      default_branch = "master"
     }
+  }
+
+  repository_branches = ["develop", "homolog", "master"]
+
+  repository_branch_renames = {
+    aws = {
+      main = "master"
+    }
+  }
+
+  repository_branches_to_delete = {
+    azure = ["uat"]
   }
 }
 ```
@@ -63,12 +79,16 @@ do repo `Terraform-Modules`.
 | `org_service_url` | `string` | URL da organizacao Azure DevOps. |
 | `personal_access_token` | `string` | PAT do Azure DevOps. Valor sensivel. |
 | `repositories` | `map(object)` | Mapa de repositorios com chave logica estavel, nome e branch padrao. |
+| `repository_branches` | `list(string)` | Branches que devem existir em todos os repositorios. |
+| `repository_branch_renames` | `map(map(string))` | Branches a renomear por repositorio. |
+| `repository_branches_to_delete` | `map(list(string))` | Branches a deletar por repositorio. |
 
 ## Outputs
 
 | Nome | Descricao |
 | --- | --- |
 | `module_version` | Versao interna do modulo. |
+| `repository_branches` | Branches padronizadas nos repositorios gerenciados. |
 | `repository_urls` | URLs dos repositorios gerenciados, indexadas pela chave logica. |
 
 ## Requisitos
