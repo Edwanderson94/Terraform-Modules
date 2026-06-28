@@ -5,6 +5,7 @@
 *.backup
 .terraform/
 .terraform*
+.terragrunt-cache/
 .terraform.lock.hcl
 
 # VSCode

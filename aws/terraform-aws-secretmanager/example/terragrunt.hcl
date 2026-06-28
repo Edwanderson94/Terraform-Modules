@@ -1,5 +1,10 @@
+# Inclui o arquivo terragrunt.hcl do diretório raiz
+include {
+  path = find_in_parent_folders()
+}
+
 terraform {
-  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=develop"
+  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=main"
 }
 
 inputs = {

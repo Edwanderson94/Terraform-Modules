@@ -1,85 +1,67 @@
 <!-- BEGIN_TF_DOCS -->
-# Repositório Terraform - Documentação Principal.
+### Repositório Módulo terraform-aws-secretmanager
 
-Bem-vindo à documentação deste repositório Terraform! Este espaço foi criado para compartilhar os conhecimentos que adquiri ao longo da minha jornada como **DevOps** e **SRE**, explorando o uso dessa poderosa ferramenta de **infraestrutura como código**.
+Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
 
-## Objetivo
+<p>
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
+</p>
 
-Este repositório tem como objetivo centralizar documentações, projetos pessoais, desenvolvimentos e exemplos práticos relacionados ao uso do **Terraform**. Aqui você encontrará:
+![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
 
-- **Projetos Pessoais**: Provisionamento de recursos, desenvolvimentos, estudos e testes.
-- **Guia de Comandos**: Facilitando o uso do Terraform.
-- **Estruturas de Implementação**: Aplicadas em plataformas como:
-  - **Azure DevOps**
+## Requirements
 
----
+| Name | Version |
+|------|---------|
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.80.0 |
 
-### Azure DevOps
+## Providers
 
-O **Azure DevOps** é um conjunto de ferramentas e serviços da Microsoft voltado para o gerenciamento completo do ciclo de vida do desenvolvimento de software, com foco em integração contínua (CI), entrega contínua (CD) e colaboração entre equipes de desenvolvimento. Ele oferece uma plataforma baseada em nuvem usada para planejar, construir, testar e implantar aplicações, automatizando e agilizando os fluxos de trabalho das equipes.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.80.0 |
 
-#### Organização
+## Modules
 
-No **Azure DevOps**, uma **Organization** (Organização) é a unidade de gerenciamento principal, agrupando todos os recursos, equipes e projetos dentro da plataforma. Ela organiza e gerencia o acesso a diversos projetos e recursos, como repositórios de código, pipelines de CI/CD, boards de tarefas, testes, entre outros. 
+No modules.
 
-Atualmente, a minha organização no Azure DevOps é chamada **Tecnoform**.
+## Resources
 
-#### Project
+| Name | Type |
+|------|------|
+| [aws_secretsmanager_secret.secret](https://registry.terraform.io/providers/hashicorp/aws/5.80.0/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret_version.secret_version](https://registry.terraform.io/providers/hashicorp/aws/5.80.0/docs/resources/secretsmanager_secret_version) | resource |
 
-No **Azure DevOps**, um **Project** (Projeto) é uma estrutura dentro de uma organização que contém todos os artefatos e recursos necessários para gerenciar o desenvolvimento de software de uma equipe ou produto específico. Ele serve como um contêiner para organizar, controlar e permitir o acesso a funcionalidades dentro do Azure DevOps, como repositórios de código, pipelines de CI/CD, boards de tarefas, test suites, entre outros.
+## Inputs
 
-#### Azure Repos
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_default_recovery_window_in_days"></a> [default\_recovery\_window\_in\_days](#input\_default\_recovery\_window\_in\_days) | Tempo padrão de recuperação (em dias) para segredos | `number` | `7` | no |
+| <a name="input_recovery_windows"></a> [recovery\_windows](#input\_recovery\_windows) | Mapa opcional com tempos de recuperação (em dias) para cada segredo | `map(number)` | `{}` | no |
+| <a name="input_region"></a> [region](#input\_region) | Região da AWS para os recursos | `string` | n/a | yes |
+| <a name="input_secrets"></a> [secrets](#input\_secrets) | Mapa de secrets e seus valores | `map(string)` | n/a | yes |
 
-**Azure Repos** é um serviço do **Azure DevOps** que oferece repositórios de código-fonte Git (ou **Team Foundation Version Control - TFVC**) para armazenar e versionar o código de uma aplicação. Ele é fundamental para o ecossistema do Azure DevOps, fornecendo um local centralizado onde as equipes podem armazenar, gerenciar e colaborar no desenvolvimento de software de forma eficiente. O **Azure Repos** é uma das principais ferramentas dentro de uma **Organization** no Azure DevOps e interage de forma integrada com outros serviços da plataforma.
+## Outputs
 
----
+| Name | Description |
+|------|-------------|
+| <a name="output_secret_arns"></a> [secret\_arns](#output\_secret\_arns) | n/a |
+| <a name="output_secret_ids"></a> [secret\_ids](#output\_secret\_ids) | n/a |
 
-# Estrutura de Pastas  
+### Contribuição
 
-Abaixo está a estrutura de diretórios e arquivos do projeto:  
-
-```plaintext
-.
-├── azure-devops/
-│   ├── organizations/
-│   │   ├── tecnoform/
-│   │   │   ├── terragrunt.hcl         # Configuração global do Terragrunt.
-│   │   │   ├── projects/
-│   │   │   │   ├── infraestructure/
-│   │   │   │   ├── terragrunt.hcl     # Configuração do Terragrunt para o projeto.
-│   │   │   │   └── docs/
-└── README.md                          # Documentação principal do repositório.
-
-```
-
----
-
-# Considerações Finais
-
-Neste projeto, tive a oportunidade de aprofundar meus conhecimentos em **Terraform** e **Terragrunt**, além de evoluir nos processos e fluxos de trabalho dessas ferramentas. O próximo passo é expandir ainda mais o uso dessas tecnologias, com a integração de novos módulos, visando a automação dos recursos no **Azure DevOps**.
-
-## Licença
-
-Este módulo está licenciado sob a licença **MIT**. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
-
-## Contribuição
-
-Contribuições são sempre bem-vindas! Se você deseja colaborar, siga os seguintes passos:
+Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
 
 1. Envie pull requests com suas alterações ou melhorias.
 2. Caso encontre algum erro ou tenha sugestões, crie uma *issue* no repositório.
 
 Agradecemos pela sua colaboração e interesse!
 
-## Agradecimentos
+## Autores
 
-Gostaria de expressar minha sincera gratidão a todos os colegas e amigos que, ao longo da minha jornada profissional, me ensinaram, ajudaram e acreditaram no meu potencial. Graças a vocês, pude aprender e compartilhar um pouco do conhecimento que agora divido com todos que consomem este conteúdo.
+- [@Edwanderson94](https://github.com/Edwanderson94)
 
-Um agradecimento especial à minha esposa, que sempre me apoiou e compreendeu os momentos em que estive ausente, dedicando meu tempo aos desenvolvimentos e conteúdos apresentados aqui. Sua compreensão e suporte foram essenciais para que eu pudesse seguir nesse caminho.
+### Considerações Finais
 
----
-
-**Desenvolvido por**  
-Edwanderson Luiz Pereira
-
+A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.
 <!-- END_TF_DOCS -->
