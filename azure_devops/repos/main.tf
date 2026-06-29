@@ -11,12 +11,12 @@ resource "azuredevops_git_repository" "repositories" {
   name           = each.value.name
   default_branch = "refs/heads/${each.value.default_branch}"
 
-  dynamic "initialization" {
-    for_each = each.value.initialize ? [1] : []
+  initialization {
+    init_type = "Clean"
+  }
 
-    content {
-      init_type = "Clean"
-    }
+  timeouts {
+    create = "5m"
   }
 
   lifecycle {

@@ -7,7 +7,6 @@ variable "repositories" {
   type = map(object({
     name           = string
     default_branch = string
-    initialize     = optional(bool, true)
   }))
 }
 
