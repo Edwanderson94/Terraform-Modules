@@ -11,8 +11,12 @@ resource "azuredevops_git_repository" "repositories" {
   name           = each.value.name
   default_branch = "refs/heads/${each.value.default_branch}"
 
-  initialization {
-    init_type = "Clean"
+  dynamic "initialization" {
+    for_each = each.value.initialize ? [1] : []
+
+    content {
+      init_type = "Clean"
+    }
   }
 
   lifecycle {
@@ -60,7 +64,6 @@ python3 <<'PY'
 import base64
 import json
 import os
-import sys
 import urllib.parse
 import urllib.request
 
@@ -115,8 +118,48 @@ source_branch = (
 )
 
 if source_branch is None:
-    print(f"Repository {repository_name} has no source branch to clone from.", file=sys.stderr)
-    sys.exit(1)
+    initial_readme = (
+        f"# {repository_name}\n\n"
+        "Repository initialized by Terraform.\n"
+    )
+    result = request(
+        "POST",
+        "/pushes?api-version=7.1",
+        {
+            "refUpdates": [
+                {
+                    "name": f"refs/heads/{default_branch}",
+                    "oldObjectId": "0000000000000000000000000000000000000000",
+                }
+            ],
+            "commits": [
+                {
+                    "comment": "chore: initial commit",
+                    "changes": [
+                        {
+                            "changeType": "add",
+                            "item": {"path": "/README.md"},
+                            "newContent": {
+                                "content": initial_readme,
+                                "contentType": "rawtext",
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    refs = request("GET", "/refs?filter=heads/&api-version=7.1").get("value", [])
+    existing = {
+        ref["name"].replace("refs/heads/", ""): ref["objectId"]
+        for ref in refs
+        if ref["name"].startswith("refs/heads/")
+    }
+    source_branch = default_branch
+
+    if source_branch not in existing:
+        raise RuntimeError(f"Could not initialize repository {repository_name} on branch {default_branch}.")
 
 source_object_id = existing[source_branch]
 

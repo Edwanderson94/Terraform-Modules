@@ -1,5 +1,5 @@
 locals {
-  module_version = "1.3.0"
+  module_version = "1.3.1"
 }
 
 locals {
@@ -8,6 +8,7 @@ locals {
     key => {
       name           = repo.name
       default_branch = repo.default_branch
+      initialize     = repo.initialize
     }
   }
 
