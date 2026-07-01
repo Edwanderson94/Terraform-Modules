@@ -1,80 +1,201 @@
+# Terraform Modules
 
-## Repositório Módulos Terraform
+Catálogo de módulos Terraform reutilizáveis para provisionar e padronizar
+recursos de infraestrutura.
 
-Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
+Este repositório foi pensado como um produto: os módulos devem ser genéricos,
+documentados, versionados por tags e consumidos por outros repositórios de live
+stacks.
 
-<p>
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License" />
-</p>
+```text
+Terraform-Modules = módulos reutilizáveis
+Terraform         = live stacks que consomem os módulos
+```
 
-![EdevOps-Logo](https://i.imgur.com/LVpNbS0.png)
+## Objetivo
 
-### Objetivo
+Centralizar módulos Terraform que possam ser usados em projetos pessoais,
+ambientes corporativos e, futuramente, por outras pessoas da comunidade.
 
-Este repositório tem como propósito centralizar módulos, documentações e exemplos práticos relacionados ao uso do Terraform. Aqui você encontrará:
+Cada módulo deve ter:
 
-- **Módulos reutilizáveis** para provisionamento de recursos.
-- **Estruturas de implementação** aplicadas em plataformas como:
-  - **Azure DevOps**
-  - **AWS**
+- contrato claro de inputs e outputs;
+- exemplo funcional;
+- documentação de uso;
+- versionamento semântico;
+- changelog;
+- validação com `terraform fmt` e `terraform validate`.
 
-Explore, aprenda e contribua para expandir este repositório com ideias e melhorias!
+## Módulos Disponíveis
 
----
+| Plataforma | Módulo | Caminho | Status |
+| --- | --- | --- | --- |
+| Azure DevOps | Repositórios Git | `azure_devops/repos` | Funcional |
+| Azure DevOps | Pipelines | `azure_devops/pipelines` | Em estruturação |
+| AWS | Secrets Manager | `aws/terraform-aws-secretmanager` | Funcional |
 
-### Azure DevOps
+## Como Consumir Um Módulo
 
-O **Azure DevOps** é um conjunto de ferramentas e serviços da Microsoft voltado para o gerenciamento completo do ciclo de vida do desenvolvimento de software, com foco em integração contínua (CI), entrega contínua (CD) e colaboração entre equipes de desenvolvimento. Ele oferece uma plataforma baseada em nuvem usada para planejar, construir, testar e implantar aplicações, automatizando e agilizando os fluxos de trabalho das equipes.
+Use sempre uma tag versionada no `source`.
 
----
+Exemplo:
 
-### Módulos Azure DevOps
+```hcl
+module "azuredevops_repositories" {
+  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=v1.3.2"
 
-Dentro da pasta **azure_devops**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
+  org_service_url       = var.org_service_url
+  personal_access_token = var.personal_access_token
+  project_name          = var.project_name
 
-#### 1. **terraform-azuredevops-repositorios**
+  repositories = {
+    aws = {
+      name           = "cloud-aws-infra"
+      default_branch = "master"
+    }
+  }
+}
+```
 
-Este módulo permite a criação de repositórios no Azure DevOps de maneira automatizada. Com ele, é possível realizar várias ações de uma única vez, como:
+Evite consumir diretamente branches mutáveis, como `develop` ou `master`, em
+pipelines produtivas.
 
-- Criar novos repositórios no Azure DevOps.
-- Definir a branch **default** do repositório, ajustando conforme suas necessidades.
+## Estrutura Recomendada de Módulo
 
-Este módulo facilita a configuração e o provisionamento de repositórios em sua organização, garantindo uma gestão eficiente e padronizada.
+Cada módulo deve seguir este padrão:
 
----
+```text
+module-name/
+├── README.md
+├── CHANGELOG.md
+├── versions.tf
+├── main.tf
+├── variables.tf
+├── outputs.tf
+└── examples/
+```
 
-### Módulos AWS 
+Quando o provider precisar de dados auxiliares, também podem existir arquivos
+como:
 
-Dentro da pasta **aws**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
+```text
+data.tf
+locals.tf
+```
 
-#### 1. **terraform-aws-secretmanager**
+## Azure DevOps
 
-Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de secrets na AWS de forma automatizada e eficiente. Com ele, você pode realizar diversas ações simultaneamente, como:
+Os módulos Azure DevOps ficam em:
 
-- Criar múltiplos secrets na AWS em uma única execução.
-- Definir o nome de cada secret de forma personalizada.
-- Configurar o número de dias para o recovery window (janela de recuperação).
-- Opcionalmente, atribuir um valor inicial ao secret (atenção: isso pode expor a senha no código; recomenda-se definir a senha posteriormente via console AWS para maior segurança).
+```text
+azure_devops/
+```
 
-Este módulo torna a configuração e o provisionamento de secrets mais rápidos e organizados, auxiliando no gerenciamento seguro de credenciais e informações sensíveis.
+Estrutura desejada:
 
----
+```text
+azure_devops/
+├── README.md
+├── repos/
+├── pipelines/
+├── variable_groups/
+├── service_connections/
+├── environments/
+└── permissions/
+```
 
-### Contribuição
+### `azure_devops/repos`
 
-Contribuições são muito bem-vindas! Se você deseja colaborar, siga as instruções abaixo:
+Módulo para gerenciar Azure Repos.
 
-1. Envie pull requests com suas alterações ou melhorias.
-2. Caso encontre algum erro ou tenha sugestões, crie uma *issue* no repositório.
+Principais capacidades:
 
-Agradecemos pela sua colaboração e interesse!
+- criar repositórios;
+- renomear repositórios mantendo uma chave lógica estável;
+- criar branches padronizadas;
+- renomear branches;
+- remover branches antigas;
+- configurar branch padrão;
+- expor URLs dos repositórios.
 
-### Autores
+Documentação específica:
+
+```text
+azure_devops/repos/README.md
+```
+
+## AWS
+
+Os módulos AWS ficam em:
+
+```text
+aws/
+```
+
+### `aws/terraform-aws-secretmanager`
+
+Módulo para criação e gerenciamento de secrets no AWS Secrets Manager.
+
+Documentação específica:
+
+```text
+aws/terraform-aws-secretmanager/README.md
+```
+
+## Versionamento
+
+Este repositório segue versionamento semântico:
+
+```text
+MAJOR.MINOR.PATCH
+```
+
+Exemplos:
+
+```text
+v1.3.2
+v1.4.0
+v2.0.0
+```
+
+Use:
+
+- `PATCH` para correções compatíveis;
+- `MINOR` para novas funcionalidades compatíveis;
+- `MAJOR` para mudanças incompatíveis.
+
+## Fluxo de Desenvolvimento
+
+Fluxo recomendado:
+
+```text
+feature/* -> develop -> master -> tag
+```
+
+Antes de publicar uma tag:
+
+```bash
+terraform fmt -recursive
+terraform validate
+```
+
+Quando possível, valide também os exemplos do módulo.
+
+## Boas Práticas
+
+- Módulos devem ser genéricos e reutilizáveis.
+- Configurações específicas de ambiente não devem ficar no módulo.
+- Segredos não devem ser hardcoded.
+- Inputs sensíveis devem usar `sensitive = true`.
+- Outputs não devem expor segredos.
+- Live stacks devem consumir módulos por tag.
+- Mudanças importantes devem ser documentadas no `CHANGELOG.md`.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo
+[`LICENSE`](./LICENSE) para mais detalhes.
+
+## Autor
 
 - [@Edwanderson94](https://github.com/Edwanderson94)
-
----
-
-### Considerações Finais
-
-A maior motivação para a criação desses módulos foi a jornada de aprendizado e experiência que adquiri ao longo da minha trajetória profissional. Meu objetivo é compartilhar esse conhecimento, oferecendo módulos para Azure DevOps utilizando Terraform, com o intuito de proporcionar maior agilidade e eficiência aos projetos de outros profissionais.

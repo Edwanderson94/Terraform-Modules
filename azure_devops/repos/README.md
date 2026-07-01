@@ -1,23 +1,93 @@
-# terraform-azuredevops-repositorios
+# Azure DevOps Repositories
 
-Modulo Terraform para criar e renomear repositorios no Azure DevOps.
+Módulo Terraform para gerenciar Azure Repos em um projeto Azure DevOps existente.
 
-## Acoes suportadas
+Este módulo foi desenhado para ser reutilizável. Configurações específicas de
+ambiente, como nomes dos repositórios da sua organização, devem ficar nas live
+stacks que consomem o módulo.
 
-- Criar repositorios em um projeto Azure DevOps existente.
-- Alterar o nome de repositorios ja gerenciados pelo Terraform.
-- Criar branches declaradas em `repository_branches`.
-- Renomear branches por repositorio com `repository_branch_renames`.
-- Deletar branches por repositorio com `repository_branches_to_delete`.
-- Padronizar as branches `develop`, `homolog` e `master`.
-- Definir `master` como branch padrao por repositorio.
-- Expor as URLs dos repositorios gerenciados.
+## Capacidades
 
-## Como renomear repositorios com seguranca
+- Criar repositórios Git no Azure DevOps.
+- Renomear repositórios mantendo uma chave lógica estável no Terraform state.
+- Criar branches padronizadas.
+- Renomear branches por repositório.
+- Remover branches antigas por repositório.
+- Configurar branch padrão por repositório.
+- Expor URLs dos repositórios gerenciados.
 
-O modulo usa `for_each` sobre o mapa `repositories`. A chave do mapa e o endereco
-estavel do recurso no state. Para renomear, preserve a chave e altere apenas
-`name`.
+## Requisitos
+
+| Requisito | Versão |
+| --- | --- |
+| Terraform | `>= 1.0, < 2.0` |
+| Provider `microsoft/azuredevops` | `1.4.0` |
+| Provider `hashicorp/null` | `~> 3.2` |
+
+O projeto Azure DevOps deve existir antes da execução.
+
+## Uso
+
+Exemplo Terraform:
+
+```hcl
+module "azuredevops_repositories" {
+  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=v1.3.2"
+
+  org_service_url       = var.org_service_url
+  personal_access_token = var.personal_access_token
+  project_name          = var.project_name
+
+  repositories = {
+    aws = {
+      name           = "cloud-aws-infra"
+      default_branch = "master"
+    }
+
+    terraform_state = {
+      name           = "terraform-state"
+      default_branch = "master"
+    }
+  }
+
+  repository_branches = ["develop", "homolog", "master"]
+}
+```
+
+Exemplo Terragrunt:
+
+```hcl
+terraform {
+  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=v1.3.2"
+}
+
+inputs = {
+  org_service_url       = get_env("AZDO_ORG_SERVICE_URL")
+  personal_access_token = get_env("AZDO_PERSONAL_ACCESS_TOKEN")
+  project_name          = "Infrastructure"
+
+  repositories = {
+    aws = {
+      name           = "cloud-aws-infra"
+      default_branch = "master"
+    }
+  }
+
+  repository_branches = ["develop", "homolog", "master"]
+}
+```
+
+Use tags versionadas no `source`. Evite consumir `develop` ou `master` em
+pipelines produtivas.
+
+## Como Renomear Repositórios
+
+O módulo usa `for_each` sobre o mapa `repositories`.
+
+A chave do mapa é a identidade do recurso no Terraform state. O campo `name` é
+o nome real do repositório no Azure DevOps.
+
+Para renomear com segurança, mantenha a chave e altere apenas `name`.
 
 ```hcl
 repositories = {
@@ -28,71 +98,89 @@ repositories = {
 }
 ```
 
-Evite trocar a chave `gcp`, porque isso faria o Terraform entender como outro
-recurso.
-
-## Uso com Terragrunt
+Para renomear:
 
 ```hcl
-terraform {
-  source = get_env(
-    "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
-    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=develop"
-  )
-}
-
-inputs = {
-  project_name          = "Infrastructure"
-  org_service_url       = get_env("AZDO_ORG_SERVICE_URL", "https://dev.azure.com/Tecnoform")
-  personal_access_token = get_env("AZDO_PERSONAL_ACCESS_TOKEN")
-
-  repositories = {
-    aws = {
-      name           = "cloud-aws-infra"
-      default_branch = "master"
-    }
-  }
-
-  repository_branches = ["develop", "homolog", "master"]
-
-  repository_branch_renames = {
-    aws = {
-      main = "master"
-    }
-  }
-
-  repository_branches_to_delete = {
-    azure = ["uat"]
+repositories = {
+  gcp = {
+    name           = "cloud-google-infra"
+    default_branch = "master"
   }
 }
 ```
 
-Em pipelines produtivos, prefira usar uma tag ou commit imutavel no `source`, ou
-aponte `TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE` para um checkout controlado
-do repo `Terraform-Modules`.
+Não altere a chave `gcp` sem necessidade. Trocar a chave faz o Terraform
+entender que é outro recurso.
+
+## Como Gerenciar Branches
+
+Branches que devem existir em todos os repositórios:
+
+```hcl
+repository_branches = ["develop", "homolog", "master"]
+```
+
+Renomear branches por repositório:
+
+```hcl
+repository_branch_renames = {
+  aws = {
+    main = "master"
+  }
+}
+```
+
+Remover branches antigas:
+
+```hcl
+repository_branches_to_delete = {
+  aws   = ["main"]
+  azure = ["uat"]
+}
+```
+
+O módulo impede a remoção de branches protegidas pela configuração desejada,
+como a branch padrão e as branches listadas em `repository_branches`.
 
 ## Inputs
 
-| Nome | Tipo | Descricao |
-| --- | --- | --- |
-| `project_name` | `string` | Nome do projeto Azure DevOps. |
-| `org_service_url` | `string` | URL da organizacao Azure DevOps. |
-| `personal_access_token` | `string` | PAT do Azure DevOps. Valor sensivel. |
-| `repositories` | `map(object)` | Mapa de repositorios com chave logica estavel, nome e branch padrao. |
-| `repository_branches` | `list(string)` | Branches que devem existir em todos os repositorios. |
-| `repository_branch_renames` | `map(map(string))` | Branches a renomear por repositorio. |
-| `repository_branches_to_delete` | `map(list(string))` | Branches a deletar por repositorio. |
+| Nome | Tipo | Obrigatório | Descrição |
+| --- | --- | --- | --- |
+| `org_service_url` | `string` | Sim | URL da organização Azure DevOps. |
+| `personal_access_token` | `string` | Sim | PAT usado pelo provider Azure DevOps. Valor sensível. |
+| `project_name` | `string` | Sim | Nome do projeto Azure DevOps existente. |
+| `repositories` | `map(object({ name = string, default_branch = string }))` | Sim | Repositórios gerenciados, indexados por chave lógica estável. |
+| `repository_branches` | `list(string)` | Não | Branches que devem existir em todos os repositórios. Padrão: `["develop", "homolog", "master"]`. |
+| `repository_branch_renames` | `map(map(string))` | Não | Mapa de renome de branches por repositório. |
+| `repository_branches_to_delete` | `map(list(string))` | Não | Branches antigas que devem ser removidas por repositório. |
 
 ## Outputs
 
-| Nome | Descricao |
+| Nome | Descrição |
 | --- | --- |
-| `module_version` | Versao interna do modulo. |
-| `repository_branches` | Branches padronizadas nos repositorios gerenciados. |
-| `repository_urls` | URLs dos repositorios gerenciados, indexadas pela chave logica. |
+| `module_version` | Versão interna do módulo. |
+| `repository_branches` | Branches padronizadas nos repositórios gerenciados. |
+| `repository_urls` | URLs dos repositórios gerenciados, indexadas pela chave lógica. |
 
-## Requisitos
+## Validação Local
 
-- Terraform `>= 1.0, < 2.0`.
-- Provider `microsoft/azuredevops` `1.4.0`.
-- Projeto Azure DevOps ja existente.
+```bash
+terraform fmt -check
+terraform init
+terraform validate
+```
+
+Para validar o exemplo Terragrunt:
+
+```bash
+cd example
+terragrunt hcl format --check
+```
+
+## Observações
+
+- O módulo usa chamadas auxiliares à API do Azure DevOps para padronizar
+  branches.
+- O PAT precisa ter permissão para administrar repositórios no projeto alvo.
+- Evite hardcode de segredos em live stacks.
+- Em pipelines, injete `AZDO_PERSONAL_ACCESS_TOKEN` como secret variable.
