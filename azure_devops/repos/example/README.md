@@ -13,7 +13,7 @@ include {
 terraform {
   source = get_env(
     "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
-    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=develop"
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=1.4.2"
   )
 }
 
@@ -63,3 +63,5 @@ inputs = {
 - `TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE`: source opcional do modulo. Use para apontar para checkout local do repo `Terraform-Modules` em pipelines multi-repo.
 
 Em pipelines produtivos, prefira apontar o source para uma tag ou commit imutavel do repo `Terraform-Modules`.
+
+Para esta release, use a tag `1.4.2` ou um commit imutável equivalente.

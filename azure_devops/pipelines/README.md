@@ -1,5 +1,12 @@
 # Azure DevOps pipeline definition
 
+```mermaid
+flowchart LR
+    consumer["Projeto e repositório\nexistentes"] --> module["pipelines module"]
+    module --> definition["Azure DevOps\nYAML build definition"]
+    yaml["azure-pipelines.yml"] --> definition
+```
+
 Módulo para registrar uma definição de pipeline YAML em um projeto Azure DevOps
 existente, apontando para um repositório Azure Repos (TfsGit). O módulo não cria
 projeto, repositório, variable group, service connection, ambiente ou permissões.

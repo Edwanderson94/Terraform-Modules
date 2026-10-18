@@ -1,5 +1,8 @@
 # Exemplo OCI
 
+Exemplo compatível com a release `1.4.2`. O módulo cria somente o bucket; o
+backend, o state de bootstrap e a recuperação devem existir separadamente.
+
 Este exemplo usa o módulo local (`../`) para facilitar `init` e `validate` sem
 publicar uma nova versão. Configure profile, região, compartment e nome por
 `TF_VAR_*` ou por um arquivo local ignorado pelo Git. Não informe credenciais

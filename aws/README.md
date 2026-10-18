@@ -1,6 +1,13 @@
 <!-- BEGIN_TF_DOCS -->
 # Repositório Terraform - Documentação Principal.
 
+```mermaid
+flowchart LR
+    consumer["Consumidor Terraform"] --> module["terraform-aws-secretmanager"]
+    module --> secret["AWS Secrets Manager\nsecret + secret version"]
+    consumer -. provider e credenciais .-> module
+```
+
 Bem-vindo à documentação deste repositório Terraform! Este espaço foi criado para compartilhar os conhecimentos que adquiri ao longo da minha jornada como **DevOps** e **SRE**, explorando o uso dessa poderosa ferramenta de **infraestrutura como código**.
 
 ## Objetivo
