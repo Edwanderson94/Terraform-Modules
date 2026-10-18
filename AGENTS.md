@@ -6,6 +6,7 @@ keep modules generic and contract-driven.
 
 ## Local guidance
 
+- Use the global `gitflow` skill for branch, release, merge, tag, and cleanup work.
 - Read `.codex/steering/terraform-modules.md` before changing module architecture,
   contracts, publication, or operational behavior.
 - Use `.codex/skills/terraform-azuredevops-module/SKILL.md` for Azure DevOps modules.
