@@ -1,5 +1,12 @@
 # Azure DevOps variable group
 
+```mermaid
+flowchart LR
+    inputs["variables\nsecret_variables\nkey_vault opcional"] --> module["variable group module"]
+    module --> group["Azure DevOps\nVariable Group"]
+    group --> consumer["Pipelines autorizadas"]
+```
+
 Módulo para criar e gerenciar um Variable Group em um projeto Azure DevOps
 existente. O módulo pode administrar variáveis comuns, variáveis secretas e,
 opcionalmente, vincular o grupo a um Azure Key Vault.

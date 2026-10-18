@@ -1,6 +1,10 @@
 
 ## Terragrunt para Gerenciamento de Segredos na AWS
 
+Este exemplo consome o módulo `terraform-aws-secretmanager`. Em ambientes
+compartilhados, fixe o source na tag `1.4.2` e forneça valores sensíveis por
+secret store, nunca pelo README ou por arquivos versionados.
+
 Este exemplo apresenta um código **Terragrunt** que utiliza um módulo **Terraform** para criar e gerenciar segredos no **AWS Secrets Manager**. A solução foi projetada para simplificar a configuração e garantir o gerenciamento seguro e eficiente de segredos, permitindo a criação de múltiplos segredos no mesmo código com facilidade.
 
 <p>

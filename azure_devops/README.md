@@ -1,6 +1,15 @@
 <!-- BEGIN_TF_DOCS -->
 # Repositório Terraform - Documentação Principal.
 
+```mermaid
+flowchart LR
+    consumer["Consumidor Terraform"] --> modules["Módulos Azure DevOps"]
+    modules --> repos["Repos\nrepositórios e branches"]
+    modules --> pipelines["Pipelines\ndefinições YAML"]
+    modules --> groups["Variable Groups\nvariáveis e secrets"]
+    consumer -. provider + IDs .-> modules
+```
+
 Bem-vindo à documentação deste repositório Terraform! Este espaço foi criado para compartilhar os conhecimentos que adquiri ao longo da minha jornada como **DevOps** e **SRE**, explorando o uso dessa poderosa ferramenta de **infraestrutura como código**.
 
 ## Objetivo

@@ -1,5 +1,13 @@
 # OCI Object Storage Bucket
 
+```mermaid
+flowchart LR
+    inputs["compartment_id\nname\nfreeform_tags"] --> module["object-storage-bucket"]
+    module --> bucket["OCI Object Storage Bucket"]
+    bucket --> settings["privado\nStandard\nversionamento"]
+    module --> protection["prevent_destroy"]
+```
+
 Módulo Terraform reutilizável para criar um bucket OCI com defaults privados e
 proteção contra exclusão acidental. Ele cria somente um bucket no compartment
 informado; não cria compartment, IAM policy, chaves KMS, backend, state bucket

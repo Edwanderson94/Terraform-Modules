@@ -1,5 +1,15 @@
 # terraform-azuredevops-repositorios
 
+Módulo reutilizável da release `1.4.2` para administrar repositórios e branches
+de um projeto Azure DevOps existente.
+
+```mermaid
+flowchart LR
+    inputs["repositories\nbranches\nrenames/deletes"] --> module["repos module"]
+    module --> repos["Azure Repos"]
+    module --> outputs["URLs + branches\nmodule_version"]
+```
+
 Modulo Terraform para criar e renomear repositorios no Azure DevOps.
 
 ## Acoes suportadas
@@ -37,7 +47,7 @@ recurso.
 terraform {
   source = get_env(
     "TG_AZURE_DEVOPS_REPOSITORIES_MODULE_SOURCE",
-    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=develop"
+    "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/repos?ref=1.4.2"
   )
 }
 
