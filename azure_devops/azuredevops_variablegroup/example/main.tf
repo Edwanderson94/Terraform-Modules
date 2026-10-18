@@ -18,7 +18,7 @@ data "azuredevops_project" "target" {
   name = var.project_name
 }
 
-module "variable_group" {
+module "azuredevops_variablegroup" {
   source = "../"
 
   project_id = data.azuredevops_project.target.id
