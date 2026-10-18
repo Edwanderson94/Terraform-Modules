@@ -1,4 +1,4 @@
-# Azure DevOps variable groups
+# Azure DevOps variable group
 
 Módulo para criar e gerenciar um Variable Group em um projeto Azure DevOps
 existente. O módulo pode administrar variáveis comuns, variáveis secretas e,
@@ -7,8 +7,8 @@ opcionalmente, vincular o grupo a um Azure Key Vault.
 ## Uso
 
 ```hcl
-module "pipeline_variables" {
-  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/variable-groups?ref=<tag-ou-commit-imutavel>"
+module "azuredevops_variablegroup" {
+  source = "git::https://github.com/Edwanderson94/Terraform-Modules.git//azure_devops/azuredevops_variablegroup?ref=<tag-ou-commit-imutavel>"
 
   project_id   = data.azuredevops_project.infrastructure.id
   name         = "Terraform State"
@@ -47,7 +47,7 @@ Para `key_vault`, informe `name`, `service_endpoint_id` e `search_depth`.
 ## Importação
 
 ```bash
-terraform import module.pipeline_variables.azuredevops_variable_group.this "<project-name>/<variable-group-id>"
+terraform import module.azuredevops_variablegroup.azuredevops_variable_group.this "<project-name>/<variable-group-id>"
 ```
 
 Variable Groups com valores secretos não podem ser importados com seus valores
