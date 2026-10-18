@@ -1,5 +1,63 @@
 
-## Repositório Módulos Terraform
+## Terraform Modules
+
+Módulos Terraform reutilizáveis para AWS, Azure DevOps e OCI. Este repositório
+mantém os módulos genéricos e deixa autenticação, ambientes e descoberta de
+recursos existentes sob responsabilidade do consumidor.
+
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Terraform](https://img.shields.io/badge/Terraform-%3E%3D1.0-623CE4.svg)
+![Release](https://img.shields.io/badge/release-1.4.2-blue.svg)
+
+## Arquitetura
+
+```mermaid
+flowchart TB
+    consumer["Projeto consumidor\nTerraform / Terragrunt"] --> source["source do módulo\ntag ou commit imutável"]
+    source --> catalog["Terraform-Modules"]
+    catalog --> aws["AWS\nterraform-aws-secretmanager"]
+    catalog --> azdo["Azure DevOps\nrepos / pipelines / variable groups"]
+    catalog --> oci["OCI\nobject-storage-bucket"]
+    consumer --> provider["Provider + autenticação\nconfigurados no consumidor"]
+    provider --> aws
+    provider --> azdo
+    provider --> oci
+```
+
+O fluxo recomendado é escolher um módulo, fixar a referência em uma tag,
+configurar o provider no projeto consumidor, revisar o `plan` e só então
+executar o `apply`. Nenhum módulo configura credenciais ou backend por conta
+própria.
+
+## Módulos disponíveis
+
+| Área | Módulo | Finalidade |
+| --- | --- | --- |
+| AWS | [`terraform-aws-secretmanager`](./aws/terraform-aws-secretmanager) | Cria vários secrets no AWS Secrets Manager. |
+| Azure DevOps | [`repos`](./azure_devops/repos) | Cria, renomeia e padroniza repositórios e branches. |
+| Azure DevOps | [`pipelines`](./azure_devops/pipelines) | Registra definições de pipelines YAML. |
+| Azure DevOps | [`azuredevops_variablegroup`](./azure_devops/azuredevops_variablegroup) | Gerencia variáveis comuns e secretas. |
+| OCI | [`object-storage-bucket`](./oci/object-storage-bucket) | Cria bucket privado, versionado e protegido. |
+
+## Versão 1.4.2
+
+Esta release consolida a documentação dos módulos, os diagramas renderizados
+pelo GitHub e as orientações de consumo com referências imutáveis.
+
+## Validação local
+
+```bash
+terraform fmt -check -recursive
+terraform -chdir=oci/object-storage-bucket/example init -backend=false
+terraform -chdir=oci/object-storage-bucket/example validate
+terraform -chdir=azure_devops/pipelines/example init -backend=false
+terraform -chdir=azure_devops/pipelines/example validate
+```
+
+Não execute `apply` ou `destroy` sem revisar e aprovar o plano.
+
+---
+
 
 Bem-vindo à documentação deste repositório de módulos Terraform. O objetivo deste projeto é criar módulos para uso pessoal, mas também torná-los disponíveis para que outros colaboradores da comunidade possam utilizá-los e contribuir para o seu aprimoramento.
 
