@@ -39,7 +39,22 @@ Este módulo permite a criação de repositórios no Azure DevOps de maneira aut
 - Criar novos repositórios no Azure DevOps.
 - Definir a branch **default** do repositório, ajustando conforme suas necessidades.
 
+#### 2. **azure_devops/pipelines**
+
+Registra uma definição de pipeline YAML em um projeto/repositório Azure DevOps
+existente. A documentação de inputs, outputs, triggers e exemplo está em
+[`azure_devops/pipelines`](./azure_devops/pipelines).
+
 Este módulo facilita a configuração e o provisionamento de repositórios em sua organização, garantindo uma gestão eficiente e padronizada.
+
+---
+
+### Módulos OCI
+
+O módulo [`oci/object-storage-bucket`](./oci/object-storage-bucket) cria um
+bucket privado com versionamento e proteção contra destruição acidental. O
+README inclui exemplos Terraform/Terragrunt e orientações específicas para o
+state de bootstrap.
 
 ---
 
