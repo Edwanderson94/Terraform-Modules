@@ -83,3 +83,11 @@ Um agradecimento especial à minha esposa, que sempre me apoiou e compreendeu os
 Edwanderson Luiz Pereira
 
 <!-- END_TF_DOCS -->
+
+## Módulos disponíveis
+
+| Módulo | Descrição |
+| --- | --- |
+| [`repos`](./repos) | Cria e padroniza repositórios e branches Azure Repos. |
+| [`pipelines`](./pipelines) | Registra definições de pipelines YAML para Azure Repos existente. |
+| [`variable-groups`](./variable-groups) | Cria e gerencia Variable Groups, variáveis secretas e vínculo opcional com Key Vault. |
