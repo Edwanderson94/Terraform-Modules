@@ -6,6 +6,7 @@ keep modules generic and contract-driven.
 
 ## Local guidance
 
+- Synchronize all repository work with Trello according to the global policy.
 - Use the global `gitflow` skill for branch, release, merge, tag, and cleanup work.
 - Read `.codex/steering/terraform-modules.md` before changing module architecture,
   contracts, publication, or operational behavior.
