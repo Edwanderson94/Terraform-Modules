@@ -20,6 +20,7 @@ flowchart TB
     catalog --> oci["OCI\nobject-storage-bucket"]
     consumer --> provider["Provider + autenticação\nconfigurados no consumidor"]
     provider --> aws
+    provider --> iam
     provider --> azdo
     provider --> oci
 ```
@@ -34,6 +35,7 @@ própria.
 | Área | Módulo | Finalidade |
 | --- | --- | --- |
 | AWS | [`terraform-aws-secretmanager`](./aws/terraform-aws-secretmanager) | Cria vários secrets no AWS Secrets Manager. |
+| AWS | [`iam`](./aws/iam) | Gerencia policies, groups, users sem access keys e roles IAM. |
 | Azure DevOps | [`repos`](./azure_devops/repos) | Cria, renomeia e padroniza repositórios e branches. |
 | Azure DevOps | [`pipelines`](./azure_devops/pipelines) | Registra definições de pipelines YAML. |
 | Azure DevOps | [`azuredevops_variablegroup`](./azure_devops/azuredevops_variablegroup) | Gerencia variáveis comuns e secretas. |

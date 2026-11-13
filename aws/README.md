@@ -1,5 +1,16 @@
 <!-- BEGIN_TF_DOCS -->
-# Repositório Terraform - Documentação Principal.
+# Módulos AWS
+
+Módulos Terraform reutilizáveis para recursos AWS. Provider, autenticação,
+account, região e valores de ambiente ficam no consumidor.
+
+| Módulo | Finalidade |
+| --- | --- |
+| [`terraform-aws-secretmanager`](./terraform-aws-secretmanager) | Cria e gerencia secrets no AWS Secrets Manager. |
+| [`iam`](./iam) | Gerencia policies, groups, users sem access keys e roles IAM. |
+
+Consulte o README de cada módulo para contrato, importação, lifecycle e
+validações. Use tags ou commits imutáveis no `source` dos consumidores.
 
 ```mermaid
 flowchart LR
