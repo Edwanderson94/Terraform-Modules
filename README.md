@@ -15,7 +15,7 @@ recursos existentes sob responsabilidade do consumidor.
 flowchart TB
     consumer["Projeto consumidor\nTerraform / Terragrunt"] --> source["source do módulo\ntag ou commit imutável"]
     source --> catalog["Terraform-Modules"]
-    catalog --> aws["AWS\nterraform-aws-secretmanager"]
+    catalog --> aws["AWS\nsecret-manager"]
     catalog --> azdo["Azure DevOps\nrepos / pipelines / variable groups"]
     catalog --> oci["OCI\nobject-storage-bucket"]
     consumer --> provider["Provider + autenticação\nconfigurados no consumidor"]
@@ -34,7 +34,7 @@ própria.
 
 | Área | Módulo | Finalidade |
 | --- | --- | --- |
-| AWS | [`terraform-aws-secretmanager`](./aws/terraform-aws-secretmanager) | Cria vários secrets no AWS Secrets Manager. |
+| AWS | [`secret-manager`](./aws/secret-manager) | Cria vários secrets no AWS Secrets Manager. |
 | AWS | [`iam`](./aws/iam) | Gerencia policies, groups, users sem access keys e roles IAM. |
 | Azure DevOps | [`repos`](./azure_devops/repos) | Cria, renomeia e padroniza repositórios e branches. |
 | Azure DevOps | [`pipelines`](./azure_devops/pipelines) | Registra definições de pipelines YAML. |
@@ -122,7 +122,7 @@ state de bootstrap.
 
 Dentro da pasta **aws**, você encontrará os módulos específicos para o Azure DevOps, com funcionalidades diversas. A seguir, destaco o módulo disponível:
 
-#### 1. **terraform-aws-secretmanager**
+#### 1. **secret-manager**
 
 Este módulo foi desenvolvido para simplificar a criação e o gerenciamento de secrets na AWS de forma automatizada e eficiente. Com ele, você pode realizar diversas ações simultaneamente, como:
 

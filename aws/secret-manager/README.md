@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-### Repositório Módulo terraform-aws-secretmanager
+### Módulo Terraform secret-manager
 
 Módulo da release `1.4.2` para criação de múltiplos secrets no AWS Secrets
 Manager. O provider e a autenticação ficam no consumidor.
