@@ -20,7 +20,8 @@ resource "azuredevops_git_repository" "repositories" {
   }
 
   lifecycle {
-    ignore_changes = [default_branch]
+    prevent_destroy = true
+    ignore_changes  = [default_branch, initialization]
   }
 }
 
