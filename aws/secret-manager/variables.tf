@@ -1,6 +1,6 @@
 variable "secrets" {
   description = "Mapa de secrets e seus valores"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "region" {

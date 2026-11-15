@@ -4,7 +4,7 @@ include {
 }
 
 terraform {
-  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=main"
+  source = "github.com/Edwanderson94/Terraform-Modules//aws/secret-manager?ref=main"
 }
 
 inputs = {
