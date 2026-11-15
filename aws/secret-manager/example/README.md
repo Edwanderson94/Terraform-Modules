@@ -1,7 +1,7 @@
 
 ## Terragrunt para Gerenciamento de Segredos na AWS
 
-Este exemplo consome o módulo `terraform-aws-secretmanager`. Em ambientes
+Este exemplo consome o módulo `secret-manager`. Em ambientes
 compartilhados, fixe o source na tag `1.4.2` e forneça valores sensíveis por
 secret store, nunca pelo README ou por arquivos versionados.
 
@@ -29,7 +29,7 @@ include {
 }
 
 terraform {
-  source = "github.com/Edwanderson94/Terraform-Modules//aws/terraform-aws-secretmanager?ref=main"
+  source = "github.com/Edwanderson94/Terraform-Modules//aws/secret-manager?ref=main"
 }
 
 inputs = {
