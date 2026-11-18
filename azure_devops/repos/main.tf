@@ -26,7 +26,7 @@ resource "azuredevops_git_repository" "repositories" {
 }
 
 resource "null_resource" "repository_branch_standard" {
-  for_each = local.repositories_map
+  for_each = var.manage_repository_branches ? local.repositories_map : {}
 
   triggers = merge(
     {
