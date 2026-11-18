@@ -7,7 +7,7 @@ recursos existentes sob responsabilidade do consumidor.
 
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Terraform](https://img.shields.io/badge/Terraform-%3E%3D1.0-623CE4.svg)
-![Release](https://img.shields.io/badge/release-1.4.2-blue.svg)
+[![Release](https://img.shields.io/badge/release-1.4.3-blue.svg)](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.4.3)
 
 ## Arquitetura
 
@@ -41,10 +41,13 @@ própria.
 | Azure DevOps | [`azuredevops_variablegroup`](./azure_devops/azuredevops_variablegroup) | Gerencia variáveis comuns e secretas. |
 | OCI | [`object-storage-bucket`](./oci/object-storage-bucket) | Cria bucket privado, versionado e protegido. |
 
-## Versão 1.4.2
+## Versão atual
 
-Esta release consolida a documentação dos módulos, os diagramas renderizados
-pelo GitHub e as orientações de consumo com referências imutáveis.
+`v1.4.3` é a versão atual publicada. Ela consolida os módulos AWS, Azure DevOps
+e OCI, além das proteções de inicialização e backend usadas pelos consumidores.
+
+Consulte o [catálogo completo de releases](./RELEASES.md) para escolher uma
+versão compatível e ler os destaques de cada tag.
 
 ## Validação local
 
