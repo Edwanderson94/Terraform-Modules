@@ -8,10 +8,10 @@ prefira sempre uma tag em vez de `master` ou de uma branch de desenvolvimento.
 
 | Versão | Tag | Data | Destaques |
 | --- | --- | --- | --- |
-| [1.4.3](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.4.3) | `v1.4.3` | 2026-11-17 | Preservação segura de branches de repositórios, proteção da inicialização existente, backend OCI gerado pelo Terragrunt, módulo AWS IAM e renomeação do módulo AWS Secrets Manager. |
-| [1.4.2](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/1.4.2) | `1.4.2` | 2026-10-17 | Documentação de release, orientações de consumo e organização operacional do repositório. |
-| [1.4.1](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/1.4.1) | `1.4.1` | 2026-10-17 | Renomeação do módulo de variable groups do Azure DevOps. |
-| [1.4.0](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/1.4.0) | `1.4.0` | 2026-10-17 | Módulo de variable groups do Azure DevOps, módulo de pipelines e módulo OCI Object Storage Bucket. |
+| [v1.4.3](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.4.3) | `v1.4.3` | 2026-11-17 | Preservação segura de branches de repositórios, proteção da inicialização existente, backend OCI gerado pelo Terragrunt, módulo AWS IAM e renomeação do módulo AWS Secrets Manager. |
+| [v1.4.2](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.4.2) | `v1.4.2` | 2026-10-17 | Documentação de release, orientações de consumo e organização operacional do repositório. |
+| [v1.4.1](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.4.1) | `v1.4.1` | 2026-10-17 | Renomeação do módulo de variable groups do Azure DevOps. |
+| [v1.4.0](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.4.0) | `v1.4.0` | 2026-10-17 | Módulo de variable groups do Azure DevOps, módulo de pipelines e módulo OCI Object Storage Bucket. |
 | [1.3.2](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.3.2) | `v1.3.2` | 2026-06-29 | Aguarda a inicialização de repositórios Azure DevOps por mais tempo antes de concluir a execução. |
 | [1.3.1](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.3.1) | `v1.3.1` | 2026-06-29 | Inicialização de repositórios Azure DevOps vazios. |
 | [1.3.0](https://github.com/Edwanderson94/Terraform-Modules/releases/tag/v1.3.0) | `v1.3.0` | 2026-06-28 | Evolução do módulo de repositórios Azure DevOps. |
@@ -43,5 +43,4 @@ As tags são a referência imutável de consumo. A publicação segue o fluxo:
 alteração → branch de trabalho → validação → release branch → master → tag → GitHub Release
 ```
 
-As tags históricas usam tanto o formato `v1.4.3` quanto `1.4.2`. Novas versões
-devem usar o formato `v<major>.<minor>.<patch>` para manter a convenção única.
+Todas as tags publicadas usam o formato `v<major>.<minor>.<patch>`.
