@@ -2,6 +2,12 @@
 # Variables
 # ================================================================
 
+variable "manage_repository_branches" {
+  description = "Whether to run branch creation, rename and deletion automation. Disable to preserve branches managed by repository owners."
+  type        = bool
+  default     = true
+}
+
 variable "repositories" {
   description = "Mapa de repositorios gerenciados. Use uma chave logica estavel para permitir renomear o repositorio alterando apenas o campo name"
   type = map(object({
