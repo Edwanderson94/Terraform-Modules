@@ -1,0 +1,79 @@
+name: Gitflow guardrails
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - master
+      - "release/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitflow-guardrails-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-branch-flow:
+    name: Validate branch flow
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Validate pull request origin and destination
+        env:
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          THIS_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "$HEAD_REPOSITORY" != "$THIS_REPOSITORY" ]]; then
+            echo "Pull requests must originate in the canonical repository." >&2
+            exit 1
+          fi
+
+          case "$BASE_BRANCH" in
+            release/*)
+              if [[ ! "$BASE_BRANCH" =~ ^release/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                echo "Release branches must use release/X.Y.Z." >&2
+                exit 1
+              fi
+              if [[ ! "$HEAD_BRANCH" =~ ^(feature|fix|docs|hotfix)/.+$ ]]; then
+                echo "Only feature, fix, docs, or hotfix branches may target a release branch." >&2
+                exit 1
+              fi
+              ;;
+            master)
+              if [[ ! "$HEAD_BRANCH" =~ ^release/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                echo "Only a versioned release branch may target master." >&2
+                exit 1
+              fi
+              ;;
+            *)
+              echo "Unsupported pull request target: $BASE_BRANCH" >&2
+              exit 1
+              ;;
+          esac
+
+  validate-change-metadata:
+    name: Validate change metadata
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Validate pull request title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Keep this check limited to the PR title; the release publication
+          # workflow will validate the complete commit range separately.
+          conventional_commit_regex='^(feat|fix|docs|chore|refactor|test|ci|build|perf|revert)(\([^)]*\))?!?:[[:space:]].+'
+          if [[ ! "$PR_TITLE" =~ $conventional_commit_regex ]]; then
+            echo "PR title must follow Conventional Commits." >&2
+            exit 1
+          fi
