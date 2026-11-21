@@ -39,6 +39,7 @@ própria.
 | Azure DevOps | [`repos`](./azure_devops/repos) | Cria, renomeia e padroniza repositórios e branches. |
 | Azure DevOps | [`pipelines`](./azure_devops/pipelines) | Registra definições de pipelines YAML. |
 | Azure DevOps | [`azuredevops_variablegroup`](./azure_devops/azuredevops_variablegroup) | Gerencia variáveis comuns e secretas. |
+| Azure DevOps | [`environment`](./azure_devops/environment) | Cria e gerencia Azure DevOps Environments. |
 | OCI | [`object-storage-bucket`](./oci/object-storage-bucket) | Cria bucket privado, versionado e protegido. |
 
 ## Versão atual
