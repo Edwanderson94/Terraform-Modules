@@ -100,3 +100,4 @@ Edwanderson Luiz Pereira
 | [`repos`](./repos) | Cria e padroniza repositórios e branches Azure Repos. |
 | [`pipelines`](./pipelines) | Registra definições de pipelines YAML para Azure Repos existente. |
 | [`azuredevops_variablegroup`](./azuredevops_variablegroup) | Cria e gerencia Variable Groups, variáveis secretas e vínculo opcional com Key Vault. |
+| [`environment`](./environment) | Cria e gerencia Environments em projetos Azure DevOps existentes. |
