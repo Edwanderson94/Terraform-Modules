@@ -16,3 +16,6 @@
 - O primeiro harness revelou erro de parsing Bash na regex de Conventional Commits; regex foi isolada em variável e corrigida no workflow e no harness.
 - Após a correção: `bash -n`, harness, `actionlint` dos dois workflows e `git diff --check` passaram.
 - Incluídos no harness casos explícitos de versão/tag SemVer conforme a convenção atual `vX.Y.Z`.
+- Branch `release/1.6.0` criada a partir de master e PR #25 retargeteada para o caminho legítimo.
+- Ruleset `gitflow-guardrails` criado no GitHub para `master`/`release/*`, com PR obrigatório, aprovação e required checks.
+- Job de publicação pós-merge adicionado, condicionado a release versionada -> master e protegido por `contents: write` apenas nesse job.

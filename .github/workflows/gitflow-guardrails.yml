@@ -79,3 +79,55 @@ jobs:
             echo "PR title must follow Conventional Commits." >&2
             exit 1
           fi
+
+  publish-release:
+    name: Publish release
+    if: >-
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'master' &&
+      startsWith(github.event.pull_request.head.ref, 'release/') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
+
+      - name: Create immutable tag and release
+        env:
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$RELEASE_BRANCH" =~ ^release/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release branch must use release/X.Y.Z." >&2
+            exit 1
+          fi
+
+          version="${RELEASE_BRANCH#release/}"
+          tag="v$version"
+
+          if [[ "$(git rev-parse HEAD)" != "$MERGE_SHA" ]]; then
+            echo "Checkout is not the pull request merge commit." >&2
+            exit 1
+          fi
+
+          if git rev-parse --verify --quiet "refs/tags/$tag"; then
+            echo "Tag $tag already exists; refusing to move or recreate it." >&2
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag --annotate "$tag" --message "Release $tag" "$MERGE_SHA"
+          git push origin "$tag"
+          gh release create "$tag" --verify-tag --title "$tag" --generate-notes

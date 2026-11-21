@@ -12,3 +12,4 @@
 - O workflow de validação usa `contents: read`; escrita só deve existir em um job de publicação isolado.
 - Tags históricas não devem ser recriadas, movidas ou apagadas.
 - O job de publicação deve rejeitar tag existente, versão inválida e divergência entre `master` e o merge commit.
+- O job publicado no workflow é acionado somente por merge de `release/X.Y.Z` em `master`; uma PR para `release/*` não possui permissão de escrita nem executa publicação.
