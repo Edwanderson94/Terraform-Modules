@@ -10,5 +10,8 @@
 | terraform-docs | Consistência de README | Não | Evolução, pois READMEs atuais têm estilos distintos |
 | actionlint | Sintaxe e expressões de workflow | Sim | Validar localmente no Passo 1 |
 
-TFLint é a evolução natural para qualidade Terraform. Trivy/Checkov devem ser
+TFLint é a evolução natural para qualidade Terraform. A CI mantém warnings
+legados visíveis e usa `--force` temporariamente para não bloquear o conjunto
+de módulos por declarações antigas; esses warnings devem virar uma tarefa de
+manutenção própria. Trivy/Checkov devem ser
 comparados em um passo separado, pois ambos ampliam regras e ruído operacional.
