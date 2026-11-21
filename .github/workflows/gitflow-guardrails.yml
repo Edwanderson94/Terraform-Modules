@@ -58,6 +58,8 @@ jobs:
               ;;
           esac
 
+          echo "Branch flow accepted: $HEAD_BRANCH -> $BASE_BRANCH"
+
   validate-change-metadata:
     name: Validate change metadata
     runs-on: ubuntu-24.04
