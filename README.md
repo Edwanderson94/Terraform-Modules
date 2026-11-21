@@ -62,6 +62,20 @@ terraform -chdir=azure_devops/pipelines/example validate
 
 Não execute `apply` ou `destroy` sem revisar e aprovar o plano.
 
+## CI no GitHub Actions
+
+O workflow [`terraform-format.yml`](./.github/workflows/terraform-format.yml)
+executa, sem credenciais ou backend remoto:
+
+- `terraform fmt -check -recursive` e verificação de whitespace;
+- `terraform init -backend=false` e `terraform validate` nos exemplos suportados;
+- TFLint recursivo;
+- Trivy em modo IaC para achados `HIGH` e `CRITICAL`.
+
+O workflow não executa `apply`, `destroy`, comandos de `state`, migração de
+backend ou provisionamento. Actions e Terraform usam versões fixadas; revise
+as versões periodicamente conforme a política de manutenção do repositório.
+
 ---
 
 

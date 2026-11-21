@@ -1,0 +1,115 @@
+name: Terraform format
+
+on:
+  pull_request:
+    branches:
+      - master
+      - "release/**"
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.tf"
+      - ".github/workflows/terraform-format.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: terraform-format-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TERRAFORM_VERSION: "1.15.7"
+
+jobs:
+  fmt:
+    name: Terraform format
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive -diff
+
+      - name: Check whitespace
+        run: git diff --check
+
+  validate:
+    name: Terraform validate (${{ matrix.example }})
+    needs: fmt
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        example:
+          - aws/iam/example
+          - azure_devops/azuredevops_variablegroup/example
+          - azure_devops/environment/example
+          - azure_devops/pipelines/example
+          - oci/object-storage-bucket/example
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+      - name: Initialize without backend
+        working-directory: ${{ matrix.example }}
+        run: terraform init -backend=false -input=false
+
+      - name: Validate Terraform configuration
+        working-directory: ${{ matrix.example }}
+        run: terraform validate -no-color
+
+  tflint:
+    name: TFLint
+    needs: fmt
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v6.3.2
+        with:
+          tflint_version: v0.59.1
+
+      - name: Initialize TFLint plugins
+        run: tflint --init
+
+      - name: Run TFLint
+        # Existing legacy entrypoints emit warnings; keep them visible without
+        # blocking unrelated module validation until they are remediated.
+        run: tflint --recursive --format compact --force
+
+  trivy:
+    name: Trivy IaC scan
+    needs: fmt
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Run Trivy IaC scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
